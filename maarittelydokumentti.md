@@ -33,11 +33,13 @@ Lisäksi kokonaisaikavaativuuteen vaikuttaa alpha-beta-karsinnan tuoma tehostus,
 
 Kokonaisaikavaativuus on siis minimax - tehostukset + evaluaatio. Tilavaativuuden osalta itse peli ei aseta rajoitteita, eli rajoitteena on vielä tarkemmin määrittelemätön kohtuullisuus.
 
-## Opinto-ohjelma ja dokumentaatiokieli
+## Opinto-ohjelma ja kielet
 
 * Opinto-ohjelma: tietojenkäsittelytieteen kandidaatti (TKT)
 
 * Dokumentaatiokieli: suomi
+
+* Ohjelmointikieli: java
 
 ## Lähteet
 
