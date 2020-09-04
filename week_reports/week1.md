@@ -18,14 +18,14 @@ Voit sisällyttää viikkoraporttin myös palautetta tai kysymyksiä kurssin ohj
 
 # Week 1
 
-(hours)[https://github.com/korolainenriikka/jani/blob/master/hourly_report.md]
+[hours](https://github.com/korolainenriikka/jani/blob/master/documentation/hourly_report.md)
 
 ## What I did
 
 * the topic of the project
 * some specifications on the othello interface
 * initialized version control for both the bot and the othello client
-* coded the othello board (currently in a different repository, will be copied here when done). (othello-core repo)[https://github.com/korolainenriikka/othello-core]
+* coded the othello board (currently in a different repository, will be copied here when done). [othello-core repo](https://github.com/korolainenriikka/othello-core)
 * researched on the functionality of game playing algorithms, decided which ones I will be implementing
 * gathered ideas about how the algorithm could be optimized later on
 
