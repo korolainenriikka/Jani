@@ -11,11 +11,11 @@
 
 # Design document
 
-## Ongelman kuvaus
+## The topic
 
-Othello on 8x8 pelilaudalla pelattava strategiapeli, pelin säännöt: [othello:wikipedia](https://fi.wikipedia.org/wiki/Othello_(lautapeli))
+Othello is a strategy game played on a 8x8 board, rules: [othello:wikipedia](https://en.wikipedia.org/wiki/Reversi).
 
-Pelin pienemmät, 4x4 ja 6x6 -versiot on ratkaistu laskennallisesti, 8x8 versiossa tähän ei ole pystytty. Pelin avauksiin ei ole löydetty yksikäsitteistä parasta strategiaa ja myös pelitilanteiden evaluaattoreista on parhaissa boteissa useita eri versioita. Perusalgoritmit (optimoitu minimax) ovat samanlaisia kaikissa hyvissä boteissa.
+The smaller, 4x4 and 6x6 variations of the game have been solved computationally. Interesting parts about the game are that there is no consensus on the best opening moves and even the best game bots use varying board state evaluation functions. However, the basic data structure (minimax tree) is similar in most othello bots.
 
 ## Data structures and algorithms
 
