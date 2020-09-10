@@ -2,6 +2,8 @@
 
 An othello-playing bot for the course data structures project, named after maybe one of the best songs ever: [https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ](https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ)
 
+<!-- TODO: only bot code here, core repo link and config instructions!!
+
 ## Documentation
 * [Design document](https://github.com/korolainenriikka/Jani/blob/master/documentation/design.md)
 
