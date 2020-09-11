@@ -1,0 +1,3 @@
+/*
+Package contains bot classes implementing the OthelloBot interface.
+*/

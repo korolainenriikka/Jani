@@ -1,5 +1,6 @@
 package bots;
 
+import coreinterfaces.OthelloBot;
 import utils.BoardUtils;
 
 /*
@@ -12,26 +13,30 @@ import utils.BoardUtils;
  *
  * @author riikoro
  */
-public class JaniDummy {
-
+public class JaniDummy implements OthelloBot {
+    /**
+     * The color the dummy bot plays in this game.
+     */
     private int player;
 
     /**
-     * Initializes game, gets player number from cli
+     * Initializes game, gets player number from cli.
      *
      * @param player which player the bot plays
      */
-    public void startGame(int player) {
+    @Override
+    public void startGame(final int player) {
         this.player = player;
     }
 
     /**
      * Dummy makemove method returns first allowed tile it wins, plays
-     * top/left-most allowed
+     * top/left-most allowed.
      *
      * @param board Game board from client
+     * @return the move row and col as array
      */
-    public int[] makeMove(int[][] board) {
+    public int[] makeMove(final int[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {
@@ -44,9 +49,9 @@ public class JaniDummy {
     }
 
     /**
-     * Tells the game it is a bot playing; timeout etc implemented in core
+     * Tells the game it is a bot playing; timeout etc implemented in core.
      *
-     * @return
+     * @return false
      */
     public boolean isHuman() {
         return false;

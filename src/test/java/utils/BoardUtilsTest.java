@@ -94,7 +94,9 @@ public class BoardUtilsTest {
     @Test
     public void openingMoveNextToOthersAllowed() {
         //spot t2
+        System.out.println("täs testis");
         assert (BoardUtils.isAllowed(4, 5, 1, board));
+        System.out.println("tää testi loppuu täs ");
     }
 
     /*
