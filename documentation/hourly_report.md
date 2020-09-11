@@ -15,10 +15,10 @@ date | hours | what I did
 8.9 | 4 | client coding, dummy bot, board utils 
 9.9 | 1,5 | jacoco/checkstyle/javadoc config, client debugging
 10.9 | 4 | game/bot interface, project directory structures
-11.9 | 4 | bot checkstyle fixes, configuration instructions and testing, dummy/random bot tests
+11.9 | 3,5 | bot checkstyle fixes, configuration instructions and testing, dummy/random bot tests
 
 ## Totals
 week | hours
 ------|------
 1 | 11
-2 | 16,5
+2 | 16
