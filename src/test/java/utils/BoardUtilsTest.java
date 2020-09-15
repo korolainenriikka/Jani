@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package utils;
 
+import static coreinterfaces.Tile.*;
 import java.util.Arrays;
 import utils.BoardUtils;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -15,15 +18,23 @@ import static org.junit.Assert.*;
  */
 public class BoardUtilsTest {
 
-    private int[][] board;
+    private int[][] startOfGameBoard;
+    private int[][] oneMoveLeftBoard;
 
     @Before
     public void setUp() {
-        board = new int[8][8];
-        board[3][3] = 2;
-        board[3][4] = 1;
-        board[4][3] = 1;
-        board[4][4] = 2;
+        startOfGameBoard = new int[8][8];
+        startOfGameBoard[3][3] = WHITE;
+        startOfGameBoard[3][4] = BLACK;
+        startOfGameBoard[4][3] = BLACK;
+        startOfGameBoard[4][4] = WHITE;
+
+        oneMoveLeftBoard = new int[8][8];
+        for (int[] row : oneMoveLeftBoard) {
+            Arrays.fill(row, BLACK);
+        }
+        oneMoveLeftBoard[0][7] = WHITE;
+        oneMoveLeftBoard[7][7] = EMPTY;
     }
 
     public boolean boardsEqual(int[][] first, int[][] second) {
@@ -70,7 +81,7 @@ public class BoardUtilsTest {
 
     @Test
     public void openingMoveOnEdgeNotAllowed() {
-        assert (!BoardUtils.isAllowed(0, 0, 1, board));
+        assert (!BoardUtils.isAllowed(0, 0, 1, startOfGameBoard));
     }
 
     /*
@@ -88,15 +99,13 @@ public class BoardUtilsTest {
     @Test
     public void openingMoveNextToOwnPlayerNotAllowed() {
         //spot t1
-        assert (!BoardUtils.isAllowed(3, 5, 1, board));
+        assert (!BoardUtils.isAllowed(3, 5, 1, startOfGameBoard));
     }
 
     @Test
     public void openingMoveNextToOthersAllowed() {
         //spot t2
-        System.out.println("täs testis");
-        assert (BoardUtils.isAllowed(4, 5, 1, board));
-        System.out.println("tää testi loppuu täs ");
+        assert (BoardUtils.isAllowed(4, 5, 1, startOfGameBoard));
     }
 
     /*
@@ -140,6 +149,26 @@ public class BoardUtilsTest {
         };
 
         assert (boardsEqual(expected, afterMove));
+    }
 
+    @Test
+    public void initialStateGameNotOver() {
+        assert (!BoardUtils.gameOver(startOfGameBoard));
+    }
+
+    @Test
+    public void oneMoveLeftGameNotOver() {
+        assert (!BoardUtils.gameOver(oneMoveLeftBoard));
+    }
+
+    @Test
+    public void noMovesLeftGameOver() {
+        oneMoveLeftBoard[7][7] = WHITE;
+        assert (BoardUtils.gameOver(oneMoveLeftBoard));
+    }
+
+    @Test
+    public void playerWithMoreDiscsWins() {
+        assertEquals(BLACK, BoardUtils.winner(oneMoveLeftBoard));
     }
 }

@@ -50,8 +50,7 @@ public class JaniRandom implements OthelloBot {
             }
         }
 
-        Random r = new Random();
-        return availableMoves.get(r.nextInt(availableMoves.size()));
+        return availableMoves.get((int) (System.nanoTime() % availableMoves.size()));
     }
 
     /**

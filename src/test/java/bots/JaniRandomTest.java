@@ -5,8 +5,7 @@
  */
 package bots;
 
-import static coreinterfaces.Tile.BLACK;
-import static coreinterfaces.Tile.WHITE;
+import static coreinterfaces.Tile.*;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -36,10 +35,8 @@ public class JaniRandomTest {
     @Test
     public void playsOpeningAccordingToRules() {
         int[] move = bot.makeMove(board);
-        //assert(/*move array is one of the allowed ones*/);
 
-        System.out.println(move[0]);
-        System.out.println(move[1]);
+        // check if opening move is one of the 4 allowed ones
         assert ((move[0] == 2 && move[1] == 3)
                 || (move[0] == 3 && move[1] == 2)
                 || (move[0] == 4 && move[1] == 5)

@@ -5,6 +5,9 @@
  */
 package utils;
 
+import static coreinterfaces.Tile.BLACK;
+import static coreinterfaces.Tile.WHITE;
+
 /**
  *
  * @author riikoro
@@ -90,8 +93,8 @@ public class BoardUtils {
      * @return a copy of the board with the new state
      */
     public static int[][] boardAfterMove(final int[] move,
-            final int[][] board, final int player) {
-        //util for predicting game state after move
+        final int[][] board, final int player) {
+
         int[][] afterMove = copy2dArray(board);
         int moveRow = move[0];
         int moveCol = move[1];
@@ -146,13 +149,49 @@ public class BoardUtils {
     }
 
     /**
+     * Checks if game is over or not; game is over if no player can make a move.
+     *
+     * @param boardState game state
+     * @return true when game is over
+     */
+    public static boolean gameOver(int[][] boardState) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isAllowed(i, j, BLACK, boardState) || isAllowed(i, j, WHITE, boardState)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Checks if current player has won the game.
      *
      * @param boardState state of the game
-     * @return if the player won the game
+     * @return int value 1 for black, 0 for even, -1 for white
      */
-    public static boolean winsAt(final int[][] boardState) {
-        return false;
-    }
+    public static int winner(final int[][] boardState) {
+        int blackScore = 0;
+        int whiteScore = 0;
 
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (boardState[i][j] == BLACK) {
+                    blackScore++;
+                } else if (boardState[i][j] == WHITE) {
+                    whiteScore++;
+                }
+            }
+        }
+
+        if (blackScore > whiteScore) {
+            return 1;
+        } else if (whiteScore > blackScore) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

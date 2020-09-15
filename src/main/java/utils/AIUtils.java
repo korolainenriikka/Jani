@@ -5,6 +5,8 @@
  */
 package utils;
 
+import static coreinterfaces.Tile.*;
+
 /**
  * Algorithm utilities: minimax, evaluating function (multiple if needed).
  *
@@ -13,28 +15,109 @@ package utils;
 public class AIUtils {
 
     /**
-     * Algorithm for trying various game states and predicting their outcomes.
-     *
-     * @return 1 for now
+     * Scoring factors for various tiles on board, from
+     * http://samsoft.org.uk/reversi/strategy.htm#position
      */
-    public static int minimax() {
-        //minimax implementation here
-        return 1;
+    static final int[][] boardScoring = {
+        {99, -8, 8, 6, 6, 8, -8, 99},
+        {-8, -24, -4, -3, -3, -4, -24, -8},
+        {8, -4, 7, 4, 4, 7, -4, 8},
+        {6, -3, 4, 0, 0, 4, -3, 6},
+        {6, -3, 4, 0, 0, 4, -3, 6},
+        {8, -4, 7, 4, 4, 7, -4, 8},
+        {-8, -24, -4, -3, -3, -4, -24, -8},
+        {99, -8, 8, 6, 6, 8, -8, 99},};
+
+    /**
+     * Algorithm for trying various game states and predicting their outcomes.
+     * Black maximizes white minimizes.
+     *
+     * @return desirability of board, +-1000=game over, between -1000 and 1000
+     * state desirability
+     */
+    public static int minimax(int[][] board, int player, int depth) {
+        if (BoardUtils.gameOver(board)) {
+            //convert winner return value to a weighed score
+            return winEvaluator(board) * 1000;
+        }
+
+        if (depth == 0) {
+            return stateEvaluator(board);
+        }
+        int opponent = player == BLACK ? WHITE : BLACK;
+
+        //maximize
+        if (player == BLACK) {
+            
+            int bestScore = -9999;
+            
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board.length; j++) {
+                    if (BoardUtils.isAllowed(i, j, player, board)) {
+                        
+                        int score = minimax(BoardUtils.boardAfterMove(new int[]{i, j}, board, player), opponent, depth - 1);
+                        if (score > bestScore) {
+                            bestScore = score;
+                        }
+                    }
+                }
+            }
+            return bestScore;
+        }
+
+        //minimize
+        if (player == WHITE) {
+            
+            int bestScore = 9999;
+            
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board.length; j++) {
+                    
+                    if (BoardUtils.isAllowed(i, j, player, board)) {
+                        int score = minimax(BoardUtils.boardAfterMove(new int[]{i, j}, board, player), opponent, depth - 1);
+                        if (score < bestScore) {
+                            bestScore = score;
+                        }
+                    }
+                }
+            }
+            return bestScore;
+        }
+
+        return 0;
     }
 
     /**
      * First evaluating function returns 1, 0 or -1 and only evaluates if game
-     * is over.
+     * is over. 1 = black won, 0 = even, -1 = white won
      *
-     * @param board
+     * @param board state of the game
      */
-    public static void dummyEvaluator(final int[][] board) {
-        //evaluating function for win/not
-        //calls boardutils.winner (return: 1 win -1 lose 0 none), returns value
+    public static int winEvaluator(final int[][] board) {
+        return BoardUtils.winner(board);
     }
 
-    /*OTHER EVALUATORS:
-    - utils: position / mobility / ... score calculator
-    - board state calculator: sum position + mobility etc
+    /**
+     * Evaluates the desirability of current board state. High value = desirable
+     *
+     * First edition:
+     *
+     * @param board state of the game
+     * @return int value between -1000 and 1000 evaluating the desirability.
      */
+    public static int stateEvaluator(int[][] board) {
+        int score = 0;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] == BLACK) {
+                    score += boardScoring[i][j];
+                } else if (board[i][j] == WHITE) {
+                    score -= boardScoring[i][j];
+                }
+            }
+        }
+
+        return score;
+    }
 }
