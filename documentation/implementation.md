@@ -6,7 +6,7 @@
 
 * Random: finds all possible moves and picks one randomly
 
-* TileScorer: Tries to have as many pieces in as many strategically important tiles as possible
+* TileScorer: Tries to have as many pieces in as many strategically important (according to samsoft scoring) tiles as possible
 
 ## Miscellaneous / notes
 (this part contains currently notes for evaluation function implementation)
@@ -49,4 +49,6 @@ iago evaluator, c1 and c2 increase during the game
 [logistello evaluator](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.7258&rep=rep1&type=pdf)
 
 [on strong othello bots](https://link.springer.com/content/pdf/10.1007/978-0-387-35660-0_10.pdf)
+
+[samsoft strategy](http://samsoft.org.uk/reversi/strategy.htm#rules)
 
