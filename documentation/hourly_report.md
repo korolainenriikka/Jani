@@ -17,8 +17,17 @@ date | hours | what I did
 10.9 | 4 | game/bot interface, project directory structures
 11.9 | 3,5 | bot checkstyle fixes, configuration instructions and testing, dummy/random bot tests
 
+## Week 3
+date | hours | what I did
+------------ | ------------- | -----------------------------------------------
+15.9 | 6 | first performance tests, client tournament feature, first minimax bot
+
+
 ## Totals
 week | hours
 ------|------
 1 | 11
 2 | 16
+3 | 6
+
+Grand total: 33 hours
