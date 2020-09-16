@@ -15,21 +15,23 @@
 
 Othello is a strategy game played on a 8x8 board, rules: [othello:wikipedia](https://en.wikipedia.org/wiki/Reversi).
 
-The smaller, 4x4 and 6x6 variations of the game have been solved computationally. Interesting parts about the game are that there is no consensus on the best opening moves and even the best game bots use varying board state evaluation functions. However, the basic data structure (minimax tree) is similar in most othello bots.
+The smaller, 4x4 and 6x6 variations of the game have been solved computationally. Interesting parts about the game are that there is no consensus on the best opening moves and even the best game bots use varying board state evaluation functions. However, the basic data structure (minimax tree) is similar in most othello bots, and most strong bots evaluate with pattern recognition and have self-correcting opening books.
 
 ## Data structures and algorithms
 
-The bot will be based on an alpha-beta-pruning minimax-algorithm. The static values on the leaves of the minimax tree will be calculated with an evaluation function that will use various principles of Othello strategy, probably detecting patterns from the board.
+The bot consists of two algorithms: an alpha-beta-pruning minimax algorithm, and a static evaluation function based on common strategy knowledge on othello (pruning not implemented yet).
 
-The primary data structure of the bot will be the tree structure for minimax. Depending on the semantics of the evaluating function a small data structure, most likely a list or a hash table may be needed for storing the ranking information on various game states.
+Alpha-beta pruning can be further optimized with ordering of searched game states, which may be later implemented as an ordering algorithm.
+
+The primary data structure of the algorithm will be a hash table used for storing already-calculated minimax values. Especially at the end of game stage in othello similar states often replicate and thus storing values for these states can make the algorithm significantly more efficient.
 
 ### Time and space complexity
 
-The time complexity of minimax is O(b^m), where b is the amout of possible moves and m is the depth of the tree. The required time will vary as the amount of moves fluctuates during the game. The game will have a time limitation per move, so the depth of the tree will be non-static and the algorithm will compute as deep as the time limitation (in spirit of data structures and algorithms -course 1.0 sec) allows.
+The time complexity of minimax is O(b^m), where b is the amout of possible moves and m is the depth of the tree. The required time will vary as the amount of moves fluctuates during the game usually between 3-15. The game will have a time limitation per move, so the depth of the minimax search will be non-static and used to compute as deep as the 1.0 sec time limit allows. Depths of about 5 moves are easily obtainable, with optimizations depths up to around 10 may be possible. Best bots out there can compute as deep as over 20 moves.
 
-Time complexity will also be reduced by pruning and various other symmetry or rule-based optimizations, and increased by the evaluator. The evaluator will have static evaluation values so its time complexity is most likely O(1).
-https://en.wikipedia.org/wiki/Reversi
-The game itself does not set restrictions on space complexity. The space complexity of the minimax tree is O(bm) with the parameters presented above. Total space complexity will also possibly include the space required by the data structures of the evaluation function, which will most likely be small compared to the game tree.
+Time complexity will be reduced by pruning and various other symmetry or rule-based optimizations, and increased by the evaluator. The evaluator will have static evaluation values so its time complexity is O(1).
+
+The game itself does not set restrictions on space complexity. The space requirements of minimax is minimal; its space complexity is O(bm) with the parameters presented above; m and b being around 10. The hash table for storing minimax values will have the biggest space complexity; othello has a total of around 250 000 game states, a fraction of which will only be stored as hashing is mostly beneficial only at the end of the game and symmetry can be used to reduce the need of data storing.
 
 ## Degree and languages
 
