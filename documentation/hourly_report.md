@@ -21,6 +21,7 @@ date | hours | what I did
 date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 15.9 | 6 | first performance tests, client tournament feature, first minimax bot
+16.9 | 5,5 | optimizing minimax bot, bot/core config, research
 
 
 ## Totals
@@ -28,6 +29,6 @@ week | hours
 ------|------
 1 | 11
 2 | 16
-3 | 6
+3 | 11,5
 
-Grand total: 33 hours
+Grand total: 38,5 hours
