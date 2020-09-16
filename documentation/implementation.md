@@ -8,6 +8,23 @@
 
 * TileScorer: Tries to have as many pieces in as many strategically important (according to samsoft scoring) tiles as possible
 
+## Next improvements
+
+### Evaluation function
+
+The evaluation function should be added more factors of the game to consider: mobility, stability and parity, and possibly changing weighing of these factors during the game.
+
+### State value hashing
+
+A data stucture for speeding up end of game computation. When minimax calculates to a terminal game state, it hashes the evaluation score of the searched states. This should speed up end-of-game computation up to 50 %.
+
+### Shallow search, opening book
+
+(advanced features)
+Shallow search can be done using minimax with a small depth to determine which moves should be 'properly investigated' first. However, this requires both a good evaluator and a data structure to store the shallowly searched moves in order.
+
+Opening book requires the use of files to store data on good othello openings. Strong bots' opening books are self-improving, but the time constraints of the course will probably limit the possibilities of implementing learning.
+
 ## Miscellaneous / notes
 (this part contains currently notes for evaluation function implementation)
 

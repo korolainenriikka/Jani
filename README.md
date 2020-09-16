@@ -23,19 +23,19 @@ Bots currently supported:
 
 Run `mvn test jacoco:report`
 
-The test coverage raport can be found in *target/site/jacoco/index.html*
+The test coverage raport can be found in *target/site/jacoco/index.html*.
 
 ### javadoc
 
 Generate javadoc with `mvn javadoc:javadoc`
 
-JavaDoc can bo found in *target/site/apidocs/index.html*.
+JavaDoc can be found in *target/site/apidocs/index.html*.
 
 ### checkstyle
 
 Check if coding style corresponds with rules specified in [checkstyle.xml](https://github.com/korolainenriikka/Jani/blob/master/checkstyle.xml) with `mvn jxr:jxr checkstyle:checkstyle`.
 
-Error specifications can be found in *target/site/apidocs/index.html*
+Error specifications can be found in *target/site/apidocs/index.html*.
 
 ## Documentation
 * [Design document](https://github.com/korolainenriikka/Jani/blob/master/documentation/design.md)
