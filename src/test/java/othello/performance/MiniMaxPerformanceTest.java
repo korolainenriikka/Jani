@@ -11,7 +11,9 @@ import static othello.api.Tile.BLACK;
 import org.junit.Test;
 
 /**
- *
+ * For testing minimax run times with various depths. Will try with incrementing
+ * depth until time limit of 1.0 sec is exceeded. No assertions.
+ * 
  * @author riikoro
  */
 public class MiniMaxPerformanceTest {

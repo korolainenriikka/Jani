@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    
 package othello.ui;
 
-import othello.api.OthelloBot;
-import static othello.api.Tile.*;
+import java.util.concurrent.*;
 
 import othello.domain.Board;
 import static othello.domain.Board.SIZE;
+
+import othello.api.OthelloBot;
+import static othello.api.Tile.*;
 
 /**
  * Command-line UI for othello
@@ -35,9 +38,9 @@ public class UI {
         int i = 0;
         while (i < numberOfGames) {
             int winner = battle(bot1, bot2, false);
-            if (winner == 1) {
+            if (winner == BLACK) {
                 winsBot1++;
-            } else if (winner == 2) {
+            } else if (winner == WHITE) {
                 winsBot2++;
             }
             i++;
@@ -58,7 +61,7 @@ public class UI {
      */
     public static int battle(OthelloBot bot1, OthelloBot bot2, boolean printsOn) {
         Board board = new Board();
-        int turn = 1;
+        int turn = 0;
         int winner = 0;
 
         OthelloBot[] contestants = new OthelloBot[]{bot1, bot2};
@@ -70,19 +73,30 @@ public class UI {
         while (!board.isGameOver()) {
             print("-------------------------------", printsOn);
             print(boardToString(board), printsOn);
-            print("turn: " + colorToMark(colors[turn - 1]), printsOn);
+            print("turn: " + colorToMark(colors[turn]), printsOn);
 
-            int opponent = turn == 1 ? 2 : 1;
+            int opponent = turn == 0 ? 1 : 0;
 
-            if (board.hasValidMovesLeft(turn)) {
-                int[] move = contestants[turn - 1].makeMove(board.getAsArray());
+            if (board.hasValidMovesLeft(colors[turn])) {
+                int[] move;
+                if (contestants[turn].isHuman()) {
+                    move = contestants[turn].makeMove(board.getAsArray());
+                } else {
+                    move = makeMoveWithTimeout(contestants[turn], board.getAsArray());
+                }
+                
+                if (move == null) {
+                    print("TIMEOUT - DISQUALIFIED", printsOn);
+                    winner = opponent;
+                    break;
+                }
 
-                boolean moveValid = board.addMove(move[0], move[1], colors[turn - 1]);
-                if (!moveValid && !contestants[turn - 1].isHuman()) {
+                boolean moveValid = board.addMove(move[0], move[1], colors[turn]);
+                if (!moveValid && !contestants[turn].isHuman()) {
                     print("INVALID MOVE - DISQUALIFIED", printsOn);
                     winner = opponent;
                     break;
-                } else if (!moveValid && contestants[turn - 1].isHuman()) {
+                } else if (!moveValid && contestants[turn].isHuman()) {
                     print("Invalid move, please try again", printsOn);
                     continue;
                 }
@@ -92,18 +106,45 @@ public class UI {
 
             turn = opponent;
         }
+        
+        print("-------------------------------", printsOn);
+        print(boardToString(board), printsOn);
 
         print("GAME OVER", printsOn);
-        print("WINNER: ", printsOn);
-
-        if (winner == 0) {
-            winner = board.winner();
-            print(colorToMark(winner), printsOn);
-            return winner;
+        int winnerColor = board.winner();
+        if (winnerColor == EMPTY) {
+            System.out.println("THE GAME IS A TIE");
         } else {
-            print("" + winner, printsOn);
-            return winner;
+            
         }
+        print("WINNER: " + colorToMark(winnerColor), printsOn);
+        
+        return colors[winner];
+    }
+    
+    public static int[] makeMoveWithTimeout(final OthelloBot bot, final int[][] board) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        
+        final Future<int[]> handler = executor.submit(new Callable() {
+            @Override
+            public int[] call() throws Exception {
+                return bot.makeMove(board);
+            }
+        });
+        
+        int[] move;
+        
+        try {
+            move = handler.get(1000, TimeUnit.MILLISECONDS);
+        } catch (TimeoutException | InterruptedException | ExecutionException e) {
+            handler.cancel(true);
+            e.printStackTrace(System.out);
+            return null;
+        }
+        
+        executor.shutdown();
+        
+        return move;
     }
 
     /**
