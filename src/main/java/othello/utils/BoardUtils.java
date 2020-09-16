@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package othello.utils;
 
-import static coreinterfaces.Tile.BLACK;
-import static coreinterfaces.Tile.WHITE;
+import static othello.api.Tile.*;
 
 /**
  *
@@ -93,7 +92,7 @@ public class BoardUtils {
      * @return a copy of the board with the new state
      */
     public static int[][] boardAfterMove(final int[] move,
-        final int[][] board, final int player) {
+            final int[][] board, final int player) {
 
         int[][] afterMove = copy2dArray(board);
         int moveRow = move[0];
@@ -194,4 +193,25 @@ public class BoardUtils {
             return 0;
         }
     }
+
+    //for debug
+    public static String boardToString(int[][] boardToPrint) {
+        String b = "  a b c d e f g h\n";
+        for (int i = 0; i < boardToPrint.length; i++) {
+            b += i + 1;
+            for (int j = 0; j < boardToPrint[0].length; j++) {
+                b += "|";
+                if (boardToPrint[i][j] == 0) {
+                    b += " ";
+                } else if (boardToPrint[i][j] == 1) {
+                    b += "○";
+                } else {
+                    b += "●";
+                }
+            }
+            b += "|\n";
+        }
+        return b;
+    }
 }
+

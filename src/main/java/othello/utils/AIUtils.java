@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package othello.utils;
 
-import static coreinterfaces.Tile.*;
+import static othello.api.Tile.*;
+import othello.utils.BoardUtils;
 
 /**
  * Algorithm utilities: minimax, evaluating function (multiple if needed).
@@ -44,6 +45,7 @@ public class AIUtils {
         if (depth == 0) {
             return stateEvaluator(board);
         }
+        
         int opponent = player == BLACK ? WHITE : BLACK;
 
         //maximize
@@ -54,7 +56,6 @@ public class AIUtils {
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        
                         int score = minimax(BoardUtils.boardAfterMove(new int[]{i, j}, board, player), opponent, depth - 1);
                         if (score > bestScore) {
                             bestScore = score;
@@ -83,7 +84,7 @@ public class AIUtils {
             }
             return bestScore;
         }
-
+        
         return 0;
     }
 

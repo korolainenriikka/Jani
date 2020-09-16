@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bots;
+package othello.bots;
 
-import static coreinterfaces.Tile.BLACK;
-import static coreinterfaces.Tile.WHITE;
+import othello.bots.JaniDummy;
+import static othello.api.Tile.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

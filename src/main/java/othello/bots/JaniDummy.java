@@ -1,7 +1,7 @@
-package bots;
+package othello.bots;
 
-import coreinterfaces.OthelloBot;
-import utils.BoardUtils;
+import othello.api.OthelloBot;
+import othello.utils.BoardUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bots;
+package othello.bots;
 
-import coreinterfaces.OthelloBot;
-import java.util.ArrayList;
-import java.util.Random;
-import utils.BoardUtils;
+import othello.api.OthelloBot;
+import othello.utils.BoardUtils;
 
 /**
  * A bot playing randomly.
@@ -33,24 +31,28 @@ public class JaniRandom implements OthelloBot {
 
     /**
      * Finds all possible moves and picks one randomly.
+     * Tried to implement without arraylist but bot broke :(
      *
      * @param boardState current state of the game
      * @return move coordinates in form {row, col}
      */
     @Override
     public int[] makeMove(final int[][] boardState) {
-        ArrayList<int[]> availableMoves = new ArrayList<>();
+        int[][] availableMoves = new int[25][2];
+        int arrayIndex = 0;
 
         for (int i = 0; i < boardState.length; i++) {
             for (int j = 0; j < boardState.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, boardState)) {
-                    int[] move = {i, j};
-                    availableMoves.add(move);
+                    availableMoves[arrayIndex][0] = i;
+                    availableMoves[arrayIndex][1] = j;
+                    arrayIndex++;
                 }
             }
         }
 
-        return availableMoves.get((int) (System.nanoTime() % availableMoves.size()));
+        int random = (int) (System.nanoTime() % arrayIndex);
+        return availableMoves[random];
     }
 
     /**
@@ -62,5 +64,5 @@ public class JaniRandom implements OthelloBot {
     public boolean isHuman() {
         return false;
     }
-
+    
 }

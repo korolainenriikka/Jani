@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package othello.utils;
 
-import static coreinterfaces.Tile.*;
-import utils.BoardUtils;
+import static othello.api.Tile.*;
+import othello.utils.BoardUtils;
 
 import org.junit.*;
 import static org.junit.Assert.*;

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package othello.utils;
 
-import static coreinterfaces.Tile.*;
+import static othello.api.Tile.*;
 import java.util.Arrays;
-import utils.BoardUtils;
+import othello.utils.BoardUtils;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -48,25 +48,7 @@ public class BoardUtilsTest {
         return true;
     }
 
-    //for debug
-    public String boardToString(int[][] boardToPrint) {
-        String b = "  a b c d e f g h\n";
-        for (int i = 0; i < boardToPrint.length; i++) {
-            b += i + 1;
-            for (int j = 0; j < boardToPrint[0].length; j++) {
-                b += "|";
-                if (boardToPrint[i][j] == 0) {
-                    b += " ";
-                } else if (boardToPrint[i][j] == 1) {
-                    b += "○";
-                } else {
-                    b += "●";
-                }
-            }
-            b += "|\n";
-        }
-        return b;
-    }
+    
 
     @Test
     public void tileInBoardReturnsTrue() {

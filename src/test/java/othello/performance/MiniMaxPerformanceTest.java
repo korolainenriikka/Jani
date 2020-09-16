@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package performance;
+package othello.performance;
 
-import bots.JaniTileScorer;
-import coreinterfaces.OthelloBot;
-import static coreinterfaces.Tile.BLACK;
+import othello.bots.JaniTileScorer;
+import static othello.api.Tile.BLACK;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author riikoro
  */
 public class MiniMaxPerformanceTest {
-
+/*
     private JaniTileScorer bot;
 
     public MiniMaxPerformanceTest() {
@@ -27,7 +25,7 @@ public class MiniMaxPerformanceTest {
 
     //tests for measuring performance times of minimax
     //time limit 1.0 seconds for all tests
-   /* @Test
+    @Test
     public void decidesOpeningMoveInTime() {
         int i = 1;
         while (true) {
@@ -39,7 +37,7 @@ public class MiniMaxPerformanceTest {
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 2, 1, 0, 0, 0},
                 {0, 0, 0, 1, 2, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 2, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
             };

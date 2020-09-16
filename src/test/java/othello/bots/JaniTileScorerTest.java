@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bots;
+package othello.bots;
 
-import static coreinterfaces.Tile.*;
+import static othello.api.Tile.*;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -15,15 +15,14 @@ import org.junit.Test;
  *
  * @author riikoro
  */
-public class JaniRandomTest {
+public class JaniTileScorerTest {
 
-    private JaniRandom bot;
+    private JaniTileScorer bot;
     private int[][] board;
 
     @Before
     public void setUp() {
-        this.bot = new JaniRandom();
-        bot.startGame(BLACK);
+        this.bot = new JaniTileScorer();
         //init default othello start state
         this.board = new int[8][8];
         board[3][3] = WHITE;
@@ -33,16 +32,19 @@ public class JaniRandomTest {
     }
 
     @Test
-    public void playsOpeningAccordingToRules() {
+    public void playsOpeningTopLeft() {
+        bot.startGame(BLACK);
         int[] move = bot.makeMove(board);
 
-        // check if opening move is one of the 4 allowed ones
-        assert ((move[0] == 2 && move[1] == 3)
-                || (move[0] == 3 && move[1] == 2)
-                || (move[0] == 4 && move[1] == 5)
-                || (move[0] == 5 && move[1] == 4));
+        // plays first encountered allowed move, opening scores equal
+        assert (move[0] == 2 && move[1] == 3);
     }
 
+    @Test
+    public void choosesMoveThatResultsInBotWinning() {
+        bot.startGame(WHITE);
+    }
+    
     @Test
     public void isNotHuman() {
         assertFalse(bot.isHuman());
