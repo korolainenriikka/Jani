@@ -2,7 +2,7 @@
 
 An othello-playing bot for the course data structures project, named after maybe one of the best songs ever: [https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ](https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ)
 
-The othello game client is copied from [othello-core](https://github.com/vuolen/othello-core)
+The othello game client is copied from [othello-core](https://github.com/vuolen/othello-core) created for this bot project.
 
 ## How to run
 
