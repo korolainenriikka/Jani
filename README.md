@@ -16,6 +16,7 @@ Bots currently supported:
 * JaniDummy: a bot playing the first allowed move it finds.
 * JaniRandom: a bot playing randomly.
 * JaniTileScorer: a simple minimax bot trying to maximize count of pieces in strategically important tiles.
+* JaniAlphaTileScorer: a pruning minimax using the same tile-scoring evaluation as tileScorer.
 
 ## Other command-line arguments
 
