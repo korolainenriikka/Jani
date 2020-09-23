@@ -24,6 +24,11 @@ date | hours | what I did
 16.9 | 5,5 | optimizing minimax bot, bot/core config, research
 17.9 | 4 | code cleanup, alpha beta research and first implementation
 
+## Week 4
+date | hours | what I did
+------------ | ------------- | -----------------------------------------------
+23.9 | 2 | evaluator research, bot win rates testing, bug fixes
+
 ## Totals
 week | hours
 ------|------
