@@ -41,6 +41,7 @@ Error specifications can be found in *target/site/apidocs/index.html*.
 ## Documentation
 * [Design document](https://github.com/korolainenriikka/Jani/blob/master/documentation/design.md)
 * [Implementation](https://github.com/korolainenriikka/Jani/blob/master/documentation/implementation.md)
+* [Testing document](https://github.com/korolainenriikka/Jani/blob/master/documentation/testing_document.md)
 
 ## Weekly reports
 * [Week 1](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week1.md)
