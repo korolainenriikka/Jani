@@ -28,6 +28,8 @@ date | hours | what I did
 date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 23.9 | 2 | evaluator research, bot win rates testing, bug fixes
+24.9 | 2,5 | evaluator started, progressive deepening research
+25.9 | 4 | progressive deepening, documentation
 
 ## Totals
 week | hours
@@ -35,5 +37,6 @@ week | hours
 1 | 11
 2 | 16
 3 | 15,5
+4 | 8,5
 
-Grand total: 42,5 hours
+Grand total: 51 hours
