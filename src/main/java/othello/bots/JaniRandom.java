@@ -14,6 +14,7 @@ import othello.utils.BoardUtils;
  * @author riikoro
  */
 public class JaniRandom implements OthelloBot {
+
     /**
      * The color the bot plays in current game.
      */
@@ -30,8 +31,8 @@ public class JaniRandom implements OthelloBot {
     }
 
     /**
-     * Finds all possible moves and picks one randomly.
-     * Tried to implement without arraylist but bot broke :(
+     * Finds all possible moves and picks one randomly. Tried to implement
+     * without arraylist but bot broke :(
      *
      * @param boardState current state of the game
      * @return move coordinates in form {row, col}
@@ -64,5 +65,5 @@ public class JaniRandom implements OthelloBot {
     public boolean isHuman() {
         return false;
     }
-    
+
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    
 package othello.ui;
 
 import java.util.concurrent.*;
@@ -15,7 +14,7 @@ import othello.api.OthelloBot;
 import static othello.api.Tile.*;
 
 /**
- * Command-line UI for othello
+ * Command-line UI for othello.
  *
  * @author riikoro
  */
@@ -23,7 +22,7 @@ public class UI {
 
     /**
      * For running multiple bot v bot games in a row, no prints of individual
-     * game situations
+     * game situations.
      *
      * @param bot1 player 1
      * @param bot2 player 2
@@ -62,7 +61,7 @@ public class UI {
     public static int battle(OthelloBot bot1, OthelloBot bot2, boolean printsOn) {
         Board board = new Board();
         int turn = 0;
-        int winner = 0;
+        int winner = -1;
 
         OthelloBot[] contestants = new OthelloBot[]{bot1, bot2};
         int[] colors = new int[]{BLACK, WHITE};
@@ -84,17 +83,17 @@ public class UI {
                 } else {
                     move = makeMoveWithTimeout(contestants[turn], board.getAsArray());
                 }
-                
+
                 if (move == null) {
                     print("TIMEOUT - DISQUALIFIED", printsOn);
-                    winner = opponent;
+                    winner = colors[opponent];
                     break;
                 }
 
                 boolean moveValid = board.addMove(move[0], move[1], colors[turn]);
                 if (!moveValid && !contestants[turn].isHuman()) {
                     print("INVALID MOVE - DISQUALIFIED", printsOn);
-                    winner = opponent;
+                    winner = colors[opponent];
                     break;
                 } else if (!moveValid && contestants[turn].isHuman()) {
                     print("Invalid move, please try again", printsOn);
@@ -106,44 +105,56 @@ public class UI {
 
             turn = opponent;
         }
-        
+
         print("-------------------------------", printsOn);
         print(boardToString(board), printsOn);
 
         print("GAME OVER", printsOn);
-        int winnerColor = board.winner();
-        if (winnerColor == EMPTY) {
-            System.out.println("THE GAME IS A TIE");
-        } else {
-            
+
+        if (winner == -1) {
+            winner = board.winner();
         }
-        print("WINNER: " + colorToMark(winnerColor), printsOn);
-        
-        return colors[winner];
+
+        if (winner == 0) {
+            print("THE GAME IS A TIE", printsOn);
+        } else {
+            print("WINNER: " + colorToMark(winner), printsOn);
+        }
+
+        return winner;
     }
-    
+
+    /**
+     * Time move making and timeout if bot exceeds time limit.
+     *
+     * @param bot bot making current move
+     * @param board current state of the game
+     * @return move made by bot in form {row, col}
+     */
     public static int[] makeMoveWithTimeout(final OthelloBot bot, final int[][] board) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        
+
         final Future<int[]> handler = executor.submit(new Callable() {
             @Override
             public int[] call() throws Exception {
                 return bot.makeMove(board);
             }
         });
-        
+
         int[] move;
-        
+
         try {
             move = handler.get(1000, TimeUnit.MILLISECONDS);
-        } catch (TimeoutException | InterruptedException | ExecutionException e) {
-            handler.cancel(true);
+        } catch (TimeoutException e) {
+            move = null;
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace(System.out);
-            return null;
+            move = null;
         }
-        
+
+        handler.cancel(true);
         executor.shutdown();
-        
+
         return move;
     }
 
@@ -160,16 +171,7 @@ public class UI {
     }
 
     /**
-     * String representing the board for printing, form: 
-     * a b c d e f g h 
-     * 1| | | | | | | | | 
-     * 2| | | | | | | | | 
-     * 3| | | | | | | | | 
-     * 4| | | |○|#| | | | 
-     * 5| | | |#|○| | | | 
-     * 6| | | | | | | | | 
-     * 7| | | | | | | | | 
-     * 8| | | | | | | | |
+     * String representing the board for printing.
      *
      * @param board state of the game
      * @return string representation

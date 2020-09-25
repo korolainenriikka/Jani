@@ -3,27 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package othello;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import othello.bots.OthelloHuman;
 
 /**
  *
  * @author Lennu Vuolanne <vuolanne.lennu@gmail.com>
  */
-public class CLITest {
-    /* @Test
+public class OthelloHumanTest {
+
+    private final OthelloHuman othelloHuman;
+
+    public OthelloHumanTest() {
+        this.othelloHuman = new OthelloHuman();
+    }
+
+    @Test
     public void inputStringChecker() {
-        assert (!CLI.isMoveStringValid(":D"));
-        assert (!board.isMoveStringValid("dd22"));
-        assert (!board.isMoveStringValid("p9"));
-        assert (board.isMoveStringValid("h1"));
+        assert (!othelloHuman.isInputFormatValid(":D"));
+        assert (!othelloHuman.isInputFormatValid("dd22"));
+        assert (!othelloHuman.isInputFormatValid("p9"));
+        assert (othelloHuman.isInputFormatValid("h1"));
     }
 
     @Test
     public void stringToCoordinateConversion() {
-        assertEquals(6, board.convertStringToCoordinates("a7")[0]);
-        assertEquals(2, board.convertStringToCoordinates("c1")[1]);
-    } */
+        assertEquals(2, othelloHuman.parseInputToCoordinates("c1")[0]);
+        assertEquals(6, othelloHuman.parseInputToCoordinates("a7")[1]);
+    }
 }

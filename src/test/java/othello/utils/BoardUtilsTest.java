@@ -48,8 +48,6 @@ public class BoardUtilsTest {
         return true;
     }
 
-    
-
     @Test
     public void tileInBoardReturnsTrue() {
         assert (BoardUtils.withinBoard(0, 7));

@@ -240,7 +240,7 @@ public class Board {
     }
 
     /**
-     * return the size of the board
+     * Return the size of the board.
      *
      * @return size (= 8)
      */

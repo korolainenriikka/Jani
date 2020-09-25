@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
+ * OthelloBot implementation for humans playing.
  *
  * @author riikoro
  */
@@ -13,6 +14,9 @@ public class OthelloHuman implements OthelloBot {
     public final boolean isHuman = true;
     Scanner scanner;
 
+    /**
+     * Initialize scanner for asking moves.
+     */
     public OthelloHuman() {
         scanner = new Scanner(System.in);
     }
@@ -35,19 +39,31 @@ public class OthelloHuman implements OthelloBot {
         }
     }
 
-    private static boolean isInputFormatValid(String input) {
+    /**
+     * Checks that human inputs are valid tile indices.
+     *
+     * @param input input string
+     * @return true = valid input
+     */
+    public boolean isInputFormatValid(String input) {
         return Pattern.matches("[a-h]{1}[1-8]{1}", input);
     }
 
-    private static int[] parseInputToCoordinates(String input) {
+    /**
+     * Parses rightly formatted input to board array indices.
+     *
+     * @param input input String
+     * @return indices as {row, col array}
+     */
+    public int[] parseInputToCoordinates(String input) {
         //a=10
         int[] coordinates = new int[2];
         coordinates[0] = Character.getNumericValue(input.charAt(0)) - 10;
         coordinates[1] = Character.getNumericValue(input.charAt(1)) - 1;
         return coordinates;
     }
-    
-    public boolean isHuman(){
+
+    public boolean isHuman() {
         return isHuman;
     }
 }

@@ -13,11 +13,11 @@ import org.junit.Test;
 /**
  * For testing minimax run times with various depths. Will try with incrementing
  * depth until time limit of 1.0 sec is exceeded. No assertions.
- * 
+ *
  * @author riikoro
  */
 public class MiniMaxPerformanceTest {
-/*
+
     private JaniTileScorer bot;
 
     public MiniMaxPerformanceTest() {
@@ -46,9 +46,9 @@ public class MiniMaxPerformanceTest {
 
             bot.makeMoveCustomDepth(openingBoard, i);
             long end = System.nanoTime();
-            System.out.println("Opening move computation time with minimax depth "+ i+ ": " + ((end - start) / 1e9) + " seconds");
-            
-            if(((end - start) / 1e9) > 1.0){
+            System.out.println("Opening move computation time with minimax depth " + i + ": " + ((end - start) / 1e9) + " seconds");
+
+            if (((end - start) / 1e9) > 1.0) {
                 break;
             }
             i++;
@@ -71,14 +71,12 @@ public class MiniMaxPerformanceTest {
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
             };
-            
-            
 
             bot.makeMoveCustomDepth(board, i);
             long end = System.nanoTime();
-            System.out.println("Mid-game move computation time with minimax depth "+ i+ ": " + ((end - start) / 1e9) + " seconds");
-            
-            if(((end - start) / 1e9) > 1.0){
+            System.out.println("Mid-game move computation time with minimax depth " + i + ": " + ((end - start) / 1e9) + " seconds");
+
+            if (((end - start) / 1e9) > 1.0) {
                 break;
             }
             i++;
@@ -101,16 +99,15 @@ public class MiniMaxPerformanceTest {
                 {1, 2, 2, 2, 2, 2, 2, 0},
                 {0, 1, 0, 2, 2, 2, 2, 0}
             };
-            
 
             bot.makeMoveCustomDepth(board, i);
             long end = System.nanoTime();
-            System.out.println("End of game move computation time with minimax depth "+ i+ ": " + ((end - start) / 1e9) + " seconds");
-            
-            if(((end - start) / 1e9) > 1.0 || i == 12){
+            System.out.println("End of game move computation time with minimax depth " + i + ": " + ((end - start) / 1e9) + " seconds");
+
+            if (((end - start) / 1e9) > 1.0 || i == 12) {
                 break;
             }
             i++;
         }
-    }*/
+    }
 }

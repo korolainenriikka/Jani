@@ -44,7 +44,7 @@ public class JaniTileScorerTest {
     public void choosesMoveThatResultsInBotWinning() {
         bot.startGame(WHITE);
     }
-    
+
     @Test
     public void isNotHuman() {
         assertFalse(bot.isHuman());

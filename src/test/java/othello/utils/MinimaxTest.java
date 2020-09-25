@@ -15,11 +15,13 @@ import static org.junit.Assert.*;
  *
  * @author riikoro
  */
-public class AIUtilsTest {
+public class MinimaxTest {
 
     private int[][] board;
+    private final double INFTY;
 
-    public AIUtilsTest() {
+    public MinimaxTest() {
+        INFTY = Double.POSITIVE_INFINITY;
     }
 
     @Before
@@ -33,9 +35,9 @@ public class AIUtilsTest {
 
     @Test
     public void minimaxOpeningScoresAlwaysEqual() {
-        // every opening score has value 4
-        assertEquals(4, AIUtils.minimax(board, BLACK, 1));
-        assertEquals(-4, AIUtils.minimax(board, WHITE, 1));
+        // every opening score has value 4  
+        assertEquals(4, (int) Minimax.minimaxAlphaBeta(board, BLACK, 1, -1 * INFTY, INFTY));
+        assertEquals(-4, (int) Minimax.minimaxAlphaBeta(board, WHITE, 1, -1 * INFTY, INFTY));
     }
 
     @Test
@@ -48,19 +50,19 @@ public class AIUtilsTest {
         eliminationBoard[2][2] = WHITE;
         eliminationBoard[2][4] = WHITE;
         eliminationBoard[4][4] = WHITE;
-        
-        assertEquals(-1000, AIUtils.minimax(eliminationBoard, WHITE, 1));
+
+        assertEquals(-1000, (int) Minimax.minimaxAlphaBeta(eliminationBoard, WHITE, 1, -1 * INFTY, INFTY));
     }
 
     @Test
     public void winEvaluatorReturnVaueEqualsBoardUtilWinningValue() {
-        assertEquals(BoardUtils.winner(board), AIUtils.winEvaluator(board));
+        assertEquals(BoardUtils.winner(board), Evaluators.winEvaluator(board));
     }
 
     @Test
     public void stateEvaluatorReturnsSumOfPieceScoresOfPlayer() {
         board[0][0] = BLACK;
         board[1][1] = BLACK;
-        assertEquals(75, AIUtils.stateEvaluator(board));
+        assertEquals(75, Evaluators.stateEvaluator(board));
     }
 }

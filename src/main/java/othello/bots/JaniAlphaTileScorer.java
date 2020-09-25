@@ -10,12 +10,13 @@ import static othello.api.Tile.*;
 import othello.utils.*;
 
 /**
- * This bot uses minimax and tries to get its pieces to as many as high-scored
- * tiles as possible.
+ * Same as tileScorer but implements alpha-beta pruning. Depths 2-3 smaller than
+ * performance tests computed in 1 second, added buffer in case more branching
+ * happens in the actual game.
  *
  * @author riikoro
  */
-public class JaniTileScorer implements OthelloBot {
+public class JaniAlphaTileScorer implements OthelloBot {
 
     /**
      * The color this bot plays in the game.
@@ -42,7 +43,7 @@ public class JaniTileScorer implements OthelloBot {
     @Override
     public void startGame(int color) {
         this.player = color;
-        this.depth = 4;
+        this.depth = 6;
         movesMade = 0;
 
         if (color == BLACK) {
@@ -56,6 +57,9 @@ public class JaniTileScorer implements OthelloBot {
      * Decide the next move; depths empirically tested to approximate
      * computation of 1.0 sec, end computes until end of game.
      *
+     * PROBLEM: checks time too rarely -> is timeouted too often PROB #2: no
+     * top-level pruning
+     *
      * @param board state of game
      * @return array of move indices in form {row, col}
      */
@@ -64,13 +68,16 @@ public class JaniTileScorer implements OthelloBot {
         long start = System.nanoTime();
         updateGamePhase();
         int[] move = new int[2];
+
         double infty = Double.POSITIVE_INFINITY;
         double bestScore = maximize ? -1 * infty : infty;
+        double a = -1 * infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {
-                    double score = Minimax.minimax(board, player, depth - 1);
+                    double score = Minimax.minimaxAlphaBeta(
+                            board, player, depth, -1 * infty, infty);
 
                     if (maximize) {
                         if (score >= bestScore) {
@@ -82,7 +89,7 @@ public class JaniTileScorer implements OthelloBot {
                         }
                     }
 
-                    if ((System.nanoTime() - start) > 0.99) {
+                    if ((System.nanoTime() - start) > 0.95) {
                         return move;
                     }
                 }
@@ -94,9 +101,9 @@ public class JaniTileScorer implements OthelloBot {
     private void updateGamePhase() {
         movesMade++;
         if (movesMade == 3) {
-            depth = 5;
+            depth = 7;
         } else if (movesMade == 27) {
-            depth = 20;
+            depth = 25;
         }
     }
 
@@ -115,7 +122,7 @@ public class JaniTileScorer implements OthelloBot {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {
-                    double score = Minimax.minimax(board, player, depth - 1);
+                    double score = Minimax.minimaxAlphaBeta(board, player, depth, -1 * infty, infty);
 
                     if (maximize) {
                         if (score > bestScore) {

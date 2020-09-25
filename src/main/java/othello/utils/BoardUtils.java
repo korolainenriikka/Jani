@@ -8,6 +8,7 @@ package othello.utils;
 import static othello.api.Tile.*;
 
 /**
+ * Basic utilities for board analyzing, used by all bots.
  *
  * @author riikoro
  */
@@ -194,7 +195,12 @@ public class BoardUtils {
         }
     }
 
-    //for debug
+    /**
+     * Converts board array to a neat string, for debugging.
+     *
+     * @param boardToPrint array to convert
+     * @return string format, similar to ui
+     */
     public static String boardToString(int[][] boardToPrint) {
         String b = "  a b c d e f g h\n";
         for (int i = 0; i < boardToPrint.length; i++) {
@@ -214,4 +220,3 @@ public class BoardUtils {
         return b;
     }
 }
-

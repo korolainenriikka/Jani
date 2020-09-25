@@ -6,8 +6,8 @@
 package othello.utils;
 
 /**
- * For bot functionalities in various game states
- * 
+ * For bot functionalities in various game states.
+ *
  * @author riikoro
  */
 public enum GamePhase {

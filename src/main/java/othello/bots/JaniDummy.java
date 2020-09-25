@@ -14,6 +14,7 @@ import othello.utils.BoardUtils;
  * @author riikoro
  */
 public class JaniDummy implements OthelloBot {
+
     /**
      * The color the dummy bot plays in this game.
      */
