@@ -37,7 +37,7 @@ Time complexity will be reduced by pruning and various other symmetry or rule-ba
 
 The time complexity of progressive deepening is surprisingly neglible; The exact time complexity of a progressively-deepening minimax computing to depth d-1, marked O(p) is derived in the following:
 
-<img src="https://github.com/korolainenriikka/Jani/edit/master/documentation/images/prgrsO.png"/>
+<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/prgrsO.png"/>
 
 As b^d is approximately in the scale of 10^5, this result can be approximated to be O(b^d-1), which means that the computation added by progressive deepening is approximately zero.
 
