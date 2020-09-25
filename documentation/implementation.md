@@ -2,63 +2,30 @@
 
 ## Current bots
 
-* Dummy: plays top/left most it finds
+* Dummy: first allowed move found
 
-* Random: finds all possible moves and picks one randomly
+* Random: a random move of the allowed ones
 
-* TileScorer: Tries to have as many pieces in as many strategically important (according to samsoft scoring) tiles as possible
+* TileScorer: minimax with weighed tile maximized scores (by samsoft weighs)
 
-## Next improvements
+* AlphaTileScorer: alpha-beta pruning minimax with weighed tile scoring
 
-### Evaluation function
+* Prgrs: a-b pruning progressively deepening minimax with mobility/stability evaluation (in development)
 
-The evaluation function should be added more factors of the game to consider: mobility, stability and parity, and possibly changing weighing of these factors during the game.
+## The features
 
-### State value hashing
+### Minimax and alpha-beta pruning
 
-A data stucture for speeding up end of game computation. When minimax calculates to a terminal game state, it hashes the evaluation score of the searched states. This should speed up end-of-game computation up to 50 %.
+Implemented very similar to the standard pseudocode; as a terminal state is used the state where the game is over. Depth 0 uses heuristic evaluation implemented either as weighed tile count maximizing (the sum of tile scores where the player has pieces), or as another using stability and mobility scoring (not yet implemented)
 
-### Shallow search, opening book
+### Progressive deepening
 
-(advanced features)
-Shallow search can be done using minimax with a small depth to determine which moves should be 'properly investigated' first. However, this requires both a good evaluator and a data structure to store the shallowly searched moves in order.
+Progressive deepening uses the big branching factor of the game to its advantege, computes evaluations on every depth iteratively and orders moves by the evaluation scores between every iteration, which is implemented as a min/max heap. This allows the algorithm to alter minimax search depth dynamically to perform the deepest possible search in any situtaion within the time constraint.
 
-Opening book requires the use of files to store data on good othello openings. Strong bots' opening books are self-improving, but the time constraints of the course will probably limit the possibilities of implementing learning.
+### Transistion table (for later versions)
 
-## Miscellaneous / notes
-(this part contains currently notes for evaluation function implementation)
+A data stucture for speeding up end of game computation. When minimax calculates to a terminal game state, it hashes the evaluation score of the searched states. This should speed up end-of-game computation up to 50 %. A transistion table is also said to be crucial with progressive deepening, but this idea requires further research.
 
-cs cornell:
-
-* uses some move ordering in order to help pruning more quickly. The move ordering is very primitive, and it simply tests first the placed around the disc which the opponent has just played, since there is a somewhat larger probability that those places will be more favorable
-(minimax optimization)
-
-* heuristic for > 14 empty squares (state evaluation) , brute-force for < 14 (minimax until board full)
-
-* brute-force: tries to win, if cannot, tries to minimize opponent's score (amount of discs)
-
-* legal moves count: +1
-
-* corner square: +10 points
-
-* speed improvement possible with cutting 'obviously bad moves'
-
-logistello:
-
-* number of moves, mobility, parity
-
-* stable discs: unflippable
-
-* mobility: count of legal moves (time consuming) -> logistello approximates
-
-* pattern calculation (seems unnecessarily complex for now)
-
-on strong bots:
-
-* stability (stable discs), mobility (available moves), parity (trying to get the last move in a region)
-
-*e(p) = C1(P)· EdgeStability(p) + 36· InternaIStability(P)+ C2(p) . CurrentMobility(p) + 99· PotentialMobility(p)
-iago evaluator, c1 and c2 increase during the game
 
 ## Sources
 [CS cornell: othello](http://www.cs.cornell.edu/~yuli/othello/othello.html)
