@@ -23,15 +23,17 @@ The bot consists of two algorithms: an alpha-beta-pruning minimax algorithm, and
 
 Alpha-beta pruning can be further optimized with ordering of searched game states, which may be later implemented as an ordering algorithm.
 
-The primary data structure of the algorithm will be a hash table used for storing already-calculated minimax values. Especially at the end of game stage in othello similar states often replicate and thus storing values for these states can make the algorithm significantly more efficient.
+The primary data structure of the algorithm will be a transistion table implemented as a hash table used for storing already-calculated minimax values. Especially at the end of game stage in othello similar states often replicate and thus storing values for these states can make the algorithm significantly more efficient.
+
+The bot can be made stronger with the implementation of an opening book and progressive deepening, but these topics will require further research.
 
 ### Time and space complexity
 
-The time complexity of minimax is O(b^m), where b is the amout of possible moves and m is the depth of the tree. The required time will vary as the amount of moves fluctuates during the game usually between 3-15. The game will have a time limitation per move, so the depth of the minimax search will be non-static and used to compute as deep as the 1.0 sec time limit allows. Depths of about 5 moves are easily obtainable, with optimizations depths up to around 10 may be possible. Best bots out there can compute as deep as over 20 moves.
+The time complexity of minimax is O(b^d), where b is the amout of possible moves and d is the depth of the tree. The required time will vary as the amount of moves fluctuates during the game usually between 3-15. The game will have a time limitation per move, so the depth of the minimax search will be non-static and used to compute as deep as the 1.0 sec time limit allows. Depths of about 5 moves are easily obtainable, with optimizations depths up to around 10 may be possible. Best bots out there can compute as deep as over 20 moves.
 
-Time complexity will be reduced by pruning and various other symmetry or rule-based optimizations, and increased by the evaluator. The evaluator will have static evaluation values so its time complexity is O(1).
+Time complexity will be reduced by pruning and various other symmetry or rule-based optimizations, and increased by the evaluator. The evaluator will have static evaluation values so its time complexity is O(1). Alpha-beta pruning with optimal move ordering has a time complexity of O(b^(d/2)).
 
-The game itself does not set restrictions on space complexity. The space requirements of minimax is minimal; its space complexity is O(bm) with the parameters presented above; m and b being around 10. The hash table for storing minimax values will have the biggest space complexity; othello has a total of around 250 000 game states, a fraction of which will only be stored as hashing is mostly beneficial only at the end of the game and symmetry can be used to reduce the need of data storing.
+The game itself does not set restrictions on space complexity. The space requirements of minimax is minimal; its space complexity is O(bd) with the parameters presented above; d and b being around 10. The hash table for storing minimax values will have the biggest space complexity; othello has a total of around 250 000 game states, a fraction of which will only be stored as hashing is mostly beneficial only at the end of the game and symmetry can be used to reduce the need of data storing.
 
 ## Degree and languages
 
@@ -44,3 +46,6 @@ The game itself does not set restrictions on space complexity. The space require
 ## Sources
 
 * [Complexity analysis of minimax](https://cis.temple.edu/~vasilis/Courses/CIS603/Lectures/l7.html)
+
+* [Alpha-beta time complexity, advanced features: MIT OCW on artificial intelligence](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/)
+

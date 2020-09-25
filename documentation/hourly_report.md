@@ -22,13 +22,18 @@ date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 15.9 | 6 | first performance tests, client tournament feature, first minimax bot
 16.9 | 5,5 | optimizing minimax bot, bot/core config, research
+17.9 | 4 | code cleanup, alpha beta research and first implementation
 
+## Week 4
+date | hours | what I did
+------------ | ------------- | -----------------------------------------------
+23.9 | 2 | evaluator research, bot win rates testing, bug fixes
 
 ## Totals
 week | hours
 ------|------
 1 | 11
 2 | 16
-3 | 11,5
+3 | 15,5
 
-Grand total: 38,5 hours
+Grand total: 42,5 hours

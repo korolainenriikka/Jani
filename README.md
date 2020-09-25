@@ -2,7 +2,7 @@
 
 An othello-playing bot for the course data structures project, named after maybe one of the best songs ever: [https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ](https://open.spotify.com/track/0P6LQE3LjywlMNrlPctTSZ?si=T4IAE_-vSMesRrord_5NFQ)
 
-The othello game client is copied from [othello-core](https://github.com/vuolen/othello-core)
+The othello game client is copied from [othello-core](https://github.com/vuolen/othello-core) created for this bot project.
 
 ## How to run
 
@@ -16,6 +16,7 @@ Bots currently supported:
 * JaniDummy: a bot playing the first allowed move it finds.
 * JaniRandom: a bot playing randomly.
 * JaniTileScorer: a simple minimax bot trying to maximize count of pieces in strategically important tiles.
+* JaniAlphaTileScorer: a pruning minimax using the same tile-scoring evaluation as tileScorer.
 
 ## Other command-line arguments
 
@@ -40,6 +41,7 @@ Error specifications can be found in *target/site/apidocs/index.html*.
 ## Documentation
 * [Design document](https://github.com/korolainenriikka/Jani/blob/master/documentation/design.md)
 * [Implementation](https://github.com/korolainenriikka/Jani/blob/master/documentation/implementation.md)
+* [Testing document](https://github.com/korolainenriikka/Jani/blob/master/documentation/testing_document.md)
 
 ## Weekly reports
 * [Week 1](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week1.md)
