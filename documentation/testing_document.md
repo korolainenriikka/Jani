@@ -1,19 +1,12 @@
 # Testing Document
 
 ## Test coverage:
-<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/test_coverage_3.png"/>
+<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/test_coverage_week4.png"/>
 
 ## Game results:
 
-The bots playing against each other yielded the following results, percentiles calculated as an average of 3 100-game tournaments:
+The bots playing against each other yielded the following results, percentiles calculated as an average of total 600 games of the bots playing against each other (3 100-game tournaments for both bots as starting player):
 
-Results are consecutively for both bot1 v bot2 and bot2 v bot1 as due to end-game parity (who gets to make the last move) it is decisive which player gets to start the game.
-
-player 1 | player 2 | percent of games won by player 1
------------- | ------------- | -----------------------------------------------
-Random | TileScorer |
-TileScorer | Random |
-Random | AlphaTileScorer |
-AlphaTileScorer | Random |
-TileScorer | AlphaTileScorer |
-AlphaTilescorer | TileScorer |
+Random v TileScorer: 53% of games won by TileScorer
+Random v AlphaTileScorer: 56% of games won by Alpha
+TileScorer v AlphaTileScorer: player 2 wins every time whichever bot is player 2
