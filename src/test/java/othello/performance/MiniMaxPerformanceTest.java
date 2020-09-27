@@ -11,8 +11,8 @@ import static othello.api.Tile.BLACK;
 import org.junit.Test;
 
 /**
- * For testing minimax run times with various depths. Will try with incrementing
- * depth until time limit of 1.0 sec is exceeded. No assertions.
+ * For testing minimax run times with various depths / bots. Will try with 
+ * incrementing depth until time limit of 1.0 sec is exceeded. No assertions.
  *
  * @author riikoro
  */
@@ -25,10 +25,8 @@ public class MiniMaxPerformanceTest {
         bot.startGame(BLACK);
     }
 
-    //tests for measuring performance times of minimax
-    //time limit 1.0 seconds for all tests
     @Test
-    public void decidesOpeningMoveInTime() {
+    public void openingMoveDepth() {
         int i = 1;
         while (true) {
             long start = System.nanoTime();
@@ -56,7 +54,7 @@ public class MiniMaxPerformanceTest {
     }
 
     @Test
-    public void decidesMoveMidGameInTime() {
+    public void midGameDepth() {
         int i = 1;
         while (true) {
             long start = System.nanoTime();
@@ -84,7 +82,7 @@ public class MiniMaxPerformanceTest {
     }
 
     @Test
-    public void decidesMoveInTimeCloseToEndOfGame() {
+    public void endGameDepth() {
         int i = 1;
         while (true) {
             long start = System.nanoTime();

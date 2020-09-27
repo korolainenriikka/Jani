@@ -57,9 +57,6 @@ public class JaniAlphaTileScorer implements OthelloBot {
      * Decide the next move; depths empirically tested to approximate
      * computation of 1.0 sec, end computes until end of game.
      *
-     * PROBLEM: checks time too rarely -> is timeouted too often PROB #2: no
-     * top-level pruning
-     *
      * @param board state of game
      * @return array of move indices in form {row, col}
      */
@@ -105,38 +102,6 @@ public class JaniAlphaTileScorer implements OthelloBot {
         } else if (movesMade == 27) {
             depth = 25;
         }
-    }
-
-    /**
-     * Try makeMove method with varying depths to time execution.
-     *
-     * @param board state of game
-     * @param depth depth of minimax search
-     * @return array of move indices in form {row, col}
-     */
-    public int[] makeMoveCustomDepth(int[][] board, int depth) {
-        int[] move = new int[2];
-        double infty = Double.POSITIVE_INFINITY;
-        double bestScore = maximize ? -1 * infty : infty;
-
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (BoardUtils.isAllowed(i, j, player, board)) {
-                    double score = Minimax.minimaxAlphaBeta(board, player, depth, -1 * infty, infty);
-
-                    if (maximize) {
-                        if (score > bestScore) {
-                            move = new int[]{i, j};
-                        }
-                    } else {
-                        if (score < bestScore) {
-                            move = new int[]{i, j};
-                        }
-                    }
-                }
-            }
-        }
-        return move;
     }
 
     /**

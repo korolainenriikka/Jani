@@ -24,9 +24,6 @@ public class Minimax {
      * incrementing depths and orders searched moves according to previous
      * search scores.
      *
-     * TODO: currently throws concurrentModificationException, avoid using 2
-     * heaps and while iterating move nodes from one to the other?
-     *
      * TODO: implement self-made min/max priorityqueue.
      *
      * @param board state of the game
@@ -36,16 +33,16 @@ public class Minimax {
     public static int[] progressiveDeepening(int[][] board, int player) {
         long start = System.nanoTime();
 
-        // node format: {{move_row, move_col}, {minimaxscore, last_searched_depth}}
+        // node format: {{move_row, move_col}, {minimaxscore, 0}}
         // comparator minimaxscore
-        PriorityQueue<int[][]> heap;
+        // two heaps, one in iteration, one for inserting new nodes
+        PriorityQueue<int[][]> oddHeap;
+        PriorityQueue<int[][]> evenHeap;
 
-        // initialize heap
-        // comparator: lower depth on top of higher, higher(max)/lower(min)
-        // minmax score on top of lower/higher.
+        // initialize heaps
         if (player == BLACK) {
             //max heap
-            heap = new PriorityQueue<int[][]>(new Comparator<int[][]>() {
+            Comparator c = new Comparator<int[][]>() {
                 @Override
                 public int compare(int[][] o1, int[][] o2) {
                     if ((o1[1][1] - o2[1][1]) == 0) {
@@ -53,10 +50,12 @@ public class Minimax {
                     }
                     return o1[1][1] - o2[1][1];
                 }
-            });
+            };
+            oddHeap = new PriorityQueue<int[][]>(c);
+            evenHeap = new PriorityQueue<int[][]>(c);
         } else {
             //min heap
-            heap = new PriorityQueue<int[][]>(new Comparator<int[][]>() {
+            Comparator c = new Comparator<int[][]>() {
                 @Override
                 public int compare(int[][] o1, int[][] o2) {
                     if ((o1[1][1] - o2[1][1]) == 0) {
@@ -64,14 +63,17 @@ public class Minimax {
                     }
                     return o1[1][1] - o2[1][1];
                 }
-            });
+            };
+
+            oddHeap = new PriorityQueue<int[][]>(c);
+            evenHeap = new PriorityQueue<int[][]>(c);
         }
 
         // find moves and insert to heap
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {
-                    heap.add(new int[][]{{i, j}, {0, 0}});
+                    oddHeap.add(new int[][]{{i, j}, {0, 0}});
                 }
             }
         }
@@ -79,23 +81,33 @@ public class Minimax {
         // call minimax iteratively
         int depth = 0;
         double infty = Double.POSITIVE_INFINITY;
+        PriorityQueue<int[][]> heapToIterate;
+        PriorityQueue<int[][]> heapToInsert = null;
 
-        while ((System.nanoTime() - start) / 1e9 < 0.95) {
+        while ((System.nanoTime() - start) / 1e9 < 0.5) {
             depth++;
-            for (int[][] moveRecord : heap) {
-                if ((System.nanoTime() - start) / 1e9 > 0.95) {
+
+            if (depth / 2 == 0) {
+                heapToIterate = evenHeap;
+                heapToInsert = oddHeap;
+            } else {
+                heapToIterate = oddHeap;
+                heapToInsert = evenHeap;
+            }
+
+            for (int[][] moveRecord : heapToIterate) {
+                if ((System.nanoTime() - start) / 1e9 > 0.5) {
                     break;
                 }
                 int[][] boardAfterMove = BoardUtils
                         .boardAfterMove(moveRecord[0], board, player);
                 int score = (int) minimaxAlphaBeta(
                         boardAfterMove, player, depth, -1 * infty, infty);
-                heap.add(new int[][]{moveRecord[0], {score, depth}});
+                heapToInsert.add(new int[][]{moveRecord[0], {score, depth}});
             }
         }
-
         // just before timeout return highest evaluated next move
-        return heap.poll()[0];
+        return heapToInsert.poll()[0];
     }
 
     /**
@@ -240,5 +252,4 @@ public class Minimax {
 
         return 0;
     }
-
 }
