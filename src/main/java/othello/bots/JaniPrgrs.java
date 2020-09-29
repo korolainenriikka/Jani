@@ -38,7 +38,7 @@ public class JaniPrgrs implements OthelloBot {
      */
     @Override
     public int[] makeMove(int[][] board) {
-        int[] move = Minimax.progressiveDeepening(board, player);
+        int[] move = ProgressiveDeepening.findBestMove(board, player);
         return move;
     }
 

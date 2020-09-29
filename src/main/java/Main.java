@@ -4,6 +4,8 @@ import othello.bots.*;
 import othello.ui.UI;
 
 import java.lang.reflect.InvocationTargetException;
+import othello.domain.Board;
+import othello.utils.BoardUtils;
 
 /**
  * Initialize bots and launch game or tournament.
@@ -18,13 +20,12 @@ public class Main {
      * @param args parameters specifying players etc, see readme
      */
     public static void main(String[] args) {
-        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
-        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
-        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
-
-        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
-        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
-        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
+        OthelloBot bot = new JaniPrgrs();
+        bot.startGame(2);
+        Board board = new Board();
+        bot.makeMove(BoardUtils.boardAfterMove(new int[]{2,3}, board.getAsArray(), 1));
+        
+        //UI.battle(new JaniRandom(), new JaniPrgrs(), true);
 
         /*if (args.length == 0) {
             UI.battle(new OthelloHuman(), new OthelloHuman(), true);
