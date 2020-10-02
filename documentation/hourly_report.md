@@ -35,6 +35,8 @@ date | hours | what I did
 date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 27.9 | 1,5 | progressive deepening, end-game evaluator
+29.9 | 1,5 | progressive deepening timeout, docs
+2.10 | 4,5 | heap
 
 ## Totals
 week | hours
@@ -43,6 +45,6 @@ week | hours
 2 | 16
 3 | 15,5
 4 | 8,5
-5 | 1,5
+5 | 7,5
 
-Grand total: 52,5 hours
+Grand total: 58,5 hours
