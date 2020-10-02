@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package othello.utils;
-//ööö oon tehny? 1,5h verta sit 1h tätä eli 2,5 ny al 17.15
 
 /**
  * Min/max heap data structure for int[2][2] arrays; comparator is array value
