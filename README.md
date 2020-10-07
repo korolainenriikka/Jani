@@ -49,3 +49,5 @@ Error specifications can be found in *target/site/apidocs/index.html*.
 * [Week 3](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week3.md)
 * [Week 4](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week4.md)
 * [Week 5](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week5.md)
+* [Week 6](https://github.com/korolainenriikka/Jani/blob/master/week_reports/week6.md)
+
