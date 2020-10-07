@@ -38,6 +38,13 @@ date | hours | what I did
 29.9 | 1,5 | progressive deepening timeout, docs
 2.10 | 4,5 | heap
 
+## Week 6
+date | hours | what I did
+------------ | ------------- | -----------------------------------------------
+7.10 | 6 | heap finished, better evaluation, tests, research
+8.10 | |
+9.10 | |
+
 ## Totals
 week | hours
 ------|------
@@ -46,5 +53,6 @@ week | hours
 3 | 15,5
 4 | 8,5
 5 | 7,5
+6 | 6
 
-Grand total: 58,5 hours
+Grand total: 64,5 hours
