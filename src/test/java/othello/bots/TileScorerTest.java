@@ -5,24 +5,27 @@
  */
 package othello.bots;
 
+import java.util.Arrays;
 import static othello.api.Tile.*;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 /**
+ * Tests both tile-scoring bots
  *
  * @author riikoro
  */
-public class JaniTileScorerTest {
+public class TileScorerTest {
 
     private JaniTileScorer bot;
+    private JaniAlphaTileScorer botA;
     private int[][] board;
 
     @Before
     public void setUp() {
         this.bot = new JaniTileScorer();
+        this.botA = new JaniAlphaTileScorer();
         //init default othello start state
         this.board = new int[8][8];
         board[3][3] = WHITE;
@@ -42,11 +45,28 @@ public class JaniTileScorerTest {
 
     @Test
     public void choosesMoveThatResultsInBotWinning() {
+        int[][] gameState = new int[][]{
+            {1, 1, 2, 2, 2, 2, 0, 1},
+            {0, 1, 2, 2, 2, 1, 1, 1},
+            {2, 2, 1, 2, 1, 1, 1, 1},   
+            {2, 1, 2, 1, 2, 1, 2, 1},
+            {2, 1, 2, 2, 1, 2, 1, 1},
+            {2, 2, 2, 2, 2, 1, 2, 1},
+            {2, 2, 2, 2, 2, 2, 1, 1},
+            {2, 1, 1, 1, 1, 1, 1, 1}
+        };
+
         bot.startGame(WHITE);
+        botA.startGame(WHITE);
+        int[] move = bot.makeMove(gameState.clone());
+        int[] moveA = botA.makeMove(gameState.clone());
+
+        // this move wins the other one loses for sure
+        assert ((move[0] == 0 && move[1] == 6) && (moveA[0] == 0 && moveA[1] == 6));
     }
 
     @Test
     public void isNotHuman() {
-        assertFalse(bot.isHuman());
+        assertFalse(bot.isHuman() || botA.isHuman());
     }
 }

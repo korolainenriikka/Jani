@@ -29,8 +29,7 @@ public class Evaluators {
         {99, -8, 8, 6, 6, 8, -8, 99}};
 
     static final int[][] CORNERS = {{0, 0}, {0, 7}, {7, 0}, {7, 7}};
-    static final int[][] X_CORNERS = {{1, 1}, {1, 6}, {6, 1}, {6, 6}};
-
+    static final int[][] DIRECTIONS = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
     static final int SIZE = 8;
 
     /**
@@ -62,33 +61,69 @@ public class Evaluators {
                 }
             }
         }
-
         return score;
+    }
+
+    /**
+     * Evaluation function for midgame: minimizes own frontier and maximizes own
+     * mobility.
+     *
+     * @param board current state of the game
+     * @param player player playing currently
+     * @return
+     */
+    public static int midgameEvaluator(int[][] board, int player) {
+        //mid-game evaluation: mobility-maximizing (count of moves available)
+        //minimize own frontier maximize moves one has
+        int ownFrontier = 0;
+        int mobility = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (BoardUtils.isAllowed(j, j, player, board)) {
+                    mobility++;
+                }
+                for (int[] d : DIRECTIONS) {
+                    int adjacentRow = i + d[0];
+                    int adjacentCol = i + d[1];
+
+                    if (BoardUtils.withinBoard(adjacentRow, adjacentCol)
+                            && board[i][j] == 0
+                            && board[adjacentRow][adjacentCol] == player) {
+                        ownFrontier++;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        int score = (mobility - ownFrontier) * 10;
+        if (player == BLACK) {
+            return score;
+        } else {
+            return -1 * score;
+        }
     }
 
     /**
      * End-game evaluation: edge stability + count of discs
      *
      * @param board current state of game
-     * @return
+     * @return evaluation score
      */
-    public static int endGameEvaluator(int[][] board, int player) {
+    public static int endgameEvaluator(int[][] board, int player) {
         boolean[][] isTileStable = new boolean[8][8];
         int edgeStability = countEdgeStability(board, isTileStable, player);
         int countOfNonStable = countNonStableDiscs(board, isTileStable, player);
-        return 10 * edgeStability + countOfNonStable;
+        int score = 10 * edgeStability + countOfNonStable;
+        if (player == BLACK) {
+            return score;
+        } else {
+            return -1 * score;
+        }
     }
 
-    /**
-     * Counts the amount of stable edge discs a player has in a given game
-     * state.
-     *
-     * @param board state of the game
-     * @param tileIsStable array for marking stable discs
-     * @param player player whose count is computed
-     * @return count of stable edge discs
-     */
-    public static int countEdgeStability(int[][] board, boolean[][] tileIsStable, int player) {
+    private static int countEdgeStability(int[][] board, boolean[][] tileIsStable, int player) {
         int edgeStability = 0;
 
         for (int[] corner : CORNERS) {
@@ -119,27 +154,21 @@ public class Evaluators {
                 }
             }
         }
+
         return edgeStability;
     }
 
-    /**
-     * Counts the amount of non-stable discs on board.
-     *
-     * @param board state of the game
-     * @param tileIsStable array to check which discs are counted as stable
-     * @param player player whose discs are counted
-     * @return count of players discs
-     */
-    public static int countNonStableDiscs(int[][] board, boolean[][] tileIsStable, int player) {
+    private static int countNonStableDiscs(int[][] board, boolean[][] tileIsStable, int player) {
         int discCount = 0;
-        
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (tileIsStable[i][j] && board[i][j] == player) {
+                if (!tileIsStable[i][j] && board[i][j] == player) {
                     discCount++;
                 }
             }
         }
+
         return discCount;
     }
 }

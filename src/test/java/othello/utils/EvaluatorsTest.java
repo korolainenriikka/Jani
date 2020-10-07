@@ -11,32 +11,36 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static othello.api.Tile.WHITE;
 
 /**
  *
  * @author riikoro
  */
 public class EvaluatorsTest {
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
     @Test
-    public void countOfStableEdgeDiscsIsCorrect() {
+    public void weighedScorerCalculatesRight() {
+        
+    }
+
+    @Test
+    public void midgameEvaluatorCalculatesRight() {
+        
+    }
+    
+    @Test
+    public void endgameEvaluatorsCalculatesRight() {
         int[][] board = new int[][]{
             {2, 2, 2, 0, 0, 0, 2, 2},
             {2, 0, 0, 0, 0, 0, 0, 2},
-            {2, 0, 0, 0, 0, 0, 0, 2},
-            {2, 0, 0, 0, 0, 0, 0, 2},
-            {2, 0, 0, 0, 0, 0, 0, 2},
-            {2, 0, 0, 0, 0, 0, 0, 2},
-            {1, 0, 0, 0, 0, 0, 0, 2},
-            {1, 1, 1, 1, 0, 0, 2, 2}};
-        assertEquals(18, Evaluators.countEdgeStability(board, new boolean[8][8], 2));
-        assertEquals(5, Evaluators.countEdgeStability(board, new boolean[8][8], 1));
-
+            {2, 0, 1, 2, 1, 2, 1, 2},
+            {2, 0, 2, 1, 2, 1, 2, 2},
+            {2, 0, 0, 1, 2, 2, 2, 2},
+            {2, 0, 1, 1, 2, 2, 2, 2},
+            {1, 1, 0, 1, 2, 0, 0, 2},
+            {1, 1, 1, 1, 2, 0, 2, 2}};
+        assertEquals(-193, Evaluators.endgameEvaluator(board, WHITE));
     }
 
 }

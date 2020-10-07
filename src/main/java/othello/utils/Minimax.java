@@ -6,6 +6,7 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
+import static othello.utils.GamePhase.*;
 
 /**
  * Variations of minimax: standard algorithm, standard + ab-pruning, standard +
@@ -17,6 +18,7 @@ public class Minimax {
 
     /**
      * Apha-beta-pruning minimax with timeout. Used by progressive deepening.
+     * Uses improved mobility evaluation during midgame
      *
      * @param board current state of game
      * @param player the color whose turn it is
@@ -24,7 +26,7 @@ public class Minimax {
      * @return desirability of board, +-1000=game over, between -1000 and 1000
      * state desirability
      */
-    public static double minimaxAlphaBetaWithTimeout(int[][] board, int player, int depth, double a, double b, long startTime) {
+    public static int minimaxAlphaBetaWithTimeout(int[][] board, int player, int depth, int a, int b, long startTime, GamePhase phase) {
         if ((System.nanoTime() - startTime) / 1e9 > 0.99) {
             return 0;
         }
@@ -34,21 +36,25 @@ public class Minimax {
             return Evaluators.winEvaluator(board) * 1000;
         }
 
-        if (depth == 0) {
-            return Evaluators.stateEvaluator(board);
+        if (depth == 0 && phase != ENDGAME) {
+            return Evaluators.midgameEvaluator(board, player);
+        }
+        
+        if (depth == 0 && phase == ENDGAME) {
+            return Evaluators.endgameEvaluator(board, player);
         }
 
         int opponent = player == BLACK ? WHITE : BLACK;
 
         //maximize
         if (player == BLACK) {
-            double bestScore = Double.NEGATIVE_INFINITY;
+            int bestScore = Integer.MIN_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimaxAlphaBetaWithTimeout(BoardUtils.boardAfterMove(
-                                new int[]{i, j}, board, player), opponent, depth - 1, a, b, startTime);
+                        int score = minimaxAlphaBetaWithTimeout(BoardUtils.boardAfterMove(
+                                new int[]{i, j}, board, player), opponent, depth - 1, a, b, startTime, phase);
                         if (score > bestScore) {
                             bestScore = score;
                         }
@@ -68,14 +74,14 @@ public class Minimax {
 
         //minimize
         if (player == WHITE) {
-            double bestScore = Double.POSITIVE_INFINITY;
+            double bestScore = Integer.MAX_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
 
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimaxAlphaBetaWithTimeout(BoardUtils.boardAfterMove(
-                                new int[]{i, j}, board, player), opponent, depth - 1, a, b, startTime);
+                        int score = minimaxAlphaBetaWithTimeout(BoardUtils.boardAfterMove(
+                                new int[]{i, j}, board, player), opponent, depth - 1, a, b, startTime, phase);
                         if (score < bestScore) {
                             bestScore = score;
                         }
@@ -104,7 +110,7 @@ public class Minimax {
      * @return desirability of board, +-1000=game over, between -1000 and 1000
      * state desirability
      */
-    public static double minimaxAlphaBeta(int[][] board, int player, int depth, double a, double b) {
+    public static int minimaxAlphaBeta(int[][] board, int player, int depth, int a, int b) {
         if (BoardUtils.gameOver(board)) {
             //convert winner return value to a weighed score
             return Evaluators.winEvaluator(board) * 1000;
@@ -119,12 +125,12 @@ public class Minimax {
         //maximize
         if (player == BLACK) {
 
-            double bestScore = Double.NEGATIVE_INFINITY;
+            int bestScore = Integer.MIN_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimaxAlphaBeta(BoardUtils.boardAfterMove(
+                        int score = minimaxAlphaBeta(BoardUtils.boardAfterMove(
                                 new int[]{i, j}, board, player), opponent, depth - 1, a, b);
                         if (score > bestScore) {
                             bestScore = score;
@@ -146,13 +152,13 @@ public class Minimax {
         //minimize
         if (player == WHITE) {
 
-            double bestScore = Double.POSITIVE_INFINITY;
+            int bestScore = Integer.MAX_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
 
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimaxAlphaBeta(BoardUtils.boardAfterMove(
+                        int score = minimaxAlphaBeta(BoardUtils.boardAfterMove(
                                 new int[]{i, j}, board, player), opponent, depth - 1, a, b);
                         if (score < bestScore) {
                             bestScore = score;
@@ -181,7 +187,7 @@ public class Minimax {
      * @param depth current depth of recursion
      * @return desirability of bsearced board
      */
-    public static double minimax(int[][] board, int player, int depth) {
+    public static int minimax(int[][] board, int player, int depth) {
         if (BoardUtils.gameOver(board)) {
             //convert winner return value to a weighed score
             return Evaluators.winEvaluator(board) * 1000;
@@ -196,12 +202,12 @@ public class Minimax {
         //maximize
         if (player == BLACK) {
 
-            double bestScore = Double.NEGATIVE_INFINITY;
+            int bestScore = Integer.MIN_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimax(BoardUtils.boardAfterMove(
+                        int score = minimax(BoardUtils.boardAfterMove(
                                 new int[]{i, j}, board, player), opponent, depth - 1);
                         if (score > bestScore) {
                             bestScore = score;
@@ -215,13 +221,13 @@ public class Minimax {
         //minimize
         if (player == WHITE) {
 
-            double bestScore = Double.POSITIVE_INFINITY;
+            int bestScore = Integer.MAX_VALUE;
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board.length; j++) {
 
                     if (BoardUtils.isAllowed(i, j, player, board)) {
-                        double score = minimax(BoardUtils.boardAfterMove(
+                        int score = minimax(BoardUtils.boardAfterMove(
                                 new int[]{i, j}, board, player), opponent, depth - 1);
                         if (score < bestScore) {
                             bestScore = score;

@@ -20,7 +20,8 @@ public class Main {
      * @param args parameters specifying players etc, see readme
      */
     public static void main(String[] args) {
-        UI.battle(new JaniRandom(), new JaniPrgrs(), true);
+        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
+        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
 
         /*if (args.length == 0) {
             UI.battle(new OthelloHuman(), new OthelloHuman(), true);

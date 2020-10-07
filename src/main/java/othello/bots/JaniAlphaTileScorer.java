@@ -66,9 +66,9 @@ public class JaniAlphaTileScorer implements OthelloBot {
         updateGamePhase();
         int[] move = new int[2];
 
-        double infty = Double.POSITIVE_INFINITY;
-        double bestScore = maximize ? -1 * infty : infty;
-        double a = -1 * infty;
+        int infty = Integer.MAX_VALUE;
+        int bestScore = maximize ? -1 * infty : infty;
+        int a = -1 * infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -112,6 +112,46 @@ public class JaniAlphaTileScorer implements OthelloBot {
     @Override
     public boolean isHuman() {
         return false;
+    }
+
+    /**
+     * For performance testing.
+     * 
+     * @param board state of the game
+     * @param customDepth depth to compute minimax
+     */
+    public int[] makeMoveCustomDepth(int[][] board, int customDepth) {
+        long start = System.nanoTime();
+        updateGamePhase();
+        int[] move = new int[2];
+
+        int infty = Integer.MAX_VALUE;
+        int bestScore = maximize ? -1 * infty : infty;
+        int a = -1 * infty;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (BoardUtils.isAllowed(i, j, player, board)) {
+                    double score = Minimax.minimaxAlphaBeta(
+                            board, player, customDepth, -1 * infty, infty);
+
+                    if (maximize) {
+                        if (score >= bestScore) {
+                            move = new int[]{i, j};
+                        }
+                    } else {
+                        if (score <= bestScore) {
+                            move = new int[]{i, j};
+                        }
+                    }
+
+                    if ((System.nanoTime() - start) > 0.95) {
+                        return move;
+                    }
+                }
+            }
+        }
+        return move;
     }
 
 }

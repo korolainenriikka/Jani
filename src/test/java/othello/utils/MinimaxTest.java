@@ -18,10 +18,10 @@ import static org.junit.Assert.*;
 public class MinimaxTest {
 
     private int[][] board;
-    private final double INFTY;
+    private final int INFTY;
 
     public MinimaxTest() {
-        INFTY = Double.POSITIVE_INFINITY;
+        INFTY = Integer.MAX_VALUE;
     }
 
     @Before

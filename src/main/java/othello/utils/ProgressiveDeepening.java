@@ -23,13 +23,14 @@ public class ProgressiveDeepening {
     /**
      * Method implementing progressively deepening minimax; calls minimax with
      * incrementing depths and orders searched moves according to previous
-     * search scores. Interrupts current iteration immediately at timeout.
+     * search scores.Interrupts current iteration immediately at timeout.
      *
      * @param board state of the game
      * @param player player to make the next move
+     * @param printsOn enable prints for performance tests
      * @return move in a {row, col} array
      */
-    public static int[] findBestMove(int[][] board, int player) {
+    public static int[] findBestMove(int[][] board, int player, boolean printsOn, GamePhase phase) {
         long start = System.nanoTime();
 
         // initialization
@@ -38,7 +39,7 @@ public class ProgressiveDeepening {
 
         // minimax iteration
         int depth = 0;
-        double infty = Double.POSITIVE_INFINITY;
+        int infty = Integer.MAX_VALUE;
         Heap heapToIterate = oddHeap;
         Heap heapToInsert = evenHeap;
         int[] currentBest = heapToIterate.peek()[0];
@@ -62,12 +63,13 @@ public class ProgressiveDeepening {
                 int[][] boardAfterMove = BoardUtils
                         .boardAfterMove(moveRecord[0], board, player);
                 int opponent = player == BLACK ? WHITE : BLACK;
-                int score = (int) Minimax.minimaxAlphaBetaWithTimeout(
-                        boardAfterMove, opponent, depth, -1 * infty, infty, start);
+                int score = Minimax.minimaxAlphaBetaWithTimeout(
+                        boardAfterMove, opponent, depth, -1 * infty, infty, start, phase);
                 heapToInsert.add(new int[][]{moveRecord[0], {score, 0}});
             }
         }
-        
+
+        print("Depth " + depth + " reached", printsOn);
         // just before timeout return currently highest evaluated move
         return currentBest;
     }
@@ -95,6 +97,13 @@ public class ProgressiveDeepening {
                     oddHeap.add(new int[][]{{i, j}, {0, 0}});
                 }
             }
+        }
+    }
+
+    private static void print(String string, boolean printsOn) {
+        // for printing depth reached in performance tests.
+        if (printsOn) {
+            System.out.println(string);
         }
     }
 }
