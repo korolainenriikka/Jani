@@ -2,8 +2,6 @@
 
 [hours](https://github.com/korolainenriikka/jani/blob/master/documentation/hourly_report.md)
 
-Still a lot of other stuff going on in life this week.
-
 ## What I did
 
 * finished and implemented heap structure
