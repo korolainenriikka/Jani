@@ -8,6 +8,9 @@ package othello.utils;
 /**
  * Min/max heap data structure for int[2][2] arrays; comparator is array value
  * in index 1,0. For progressive deepening.
+ * 
+ * Max amount of nodes will be small throughout the game, so any store-and-order
+ * data structure would suffice. Heap implemented for the sake of the sport :)
  *
  * @author riikoro
  */
@@ -53,19 +56,16 @@ public class Heap {
     public void add(int[][] nodeToAdd) {
         heap[firstFreeNode] = nodeToAdd;
         firstFreeNode++;
-        
+
         //upheapify
         int indexToCheck = firstFreeNode - 1;
         while (indexToCheck != 1) {
-            //System.out.println("looking at node " + indexToCheck);
             if (!comparesHigher(parent(indexToCheck), indexToCheck)) {
-                //System.out.println("swappin, movin on....");
                 int[][] parent = heap[parent(indexToCheck)];
                 heap[parent(indexToCheck)] = heap[indexToCheck];
                 heap[indexToCheck] = parent;
                 indexToCheck = parent(indexToCheck);
             } else {
-                //System.out.println("all ok!");
                 break;
             }
         }
@@ -111,46 +111,34 @@ public class Heap {
         if (firstFreeNode == 1) {
             return null;
         }
-
         int[][] nodeToRemove = heap[1];
-        System.out.println("moving last to first");
+        
         //move last node to first
         heap[1] = heap[firstFreeNode - 1];
         heap[firstFreeNode - 1] = null;
         firstFreeNode--;
-        this.printDisShit();
-        System.out.println("heapin down");
+        
         //downheapify
         int indexToCheck = 1;
         while (leftChild(indexToCheck) < firstFreeNode || rightChild(indexToCheck) < firstFreeNode) {
-            System.out.println("inspectoing " + indexToCheck);
-            System.out.println("first free: " + firstFreeNode);
-            System.out.println("left child: " + leftChild(indexToCheck));
-            System.out.println("right child: " + rightChild(indexToCheck));
             
-            if (comparesHigher(leftChild(indexToCheck), rightChild(indexToCheck))) {
-                if (comparesHigher(leftChild(indexToCheck), indexToCheck)) {
+            if (comparesHigher(leftChild(indexToCheck), rightChild(indexToCheck))
+                && comparesHigher(leftChild(indexToCheck), indexToCheck)) {
                     // swap node checked with left child
-                    System.out.println("swapping left");
                     int[][] toCheckNode = heap[indexToCheck];
                     heap[indexToCheck] = heap[leftChild(indexToCheck)];
                     heap[leftChild(indexToCheck)] = toCheckNode;
-                    System.out.println(leftChild(indexToCheck) + " became " + indexToCheck);
                     indexToCheck = leftChild(indexToCheck);
-                    continue;
-                }
-            } else if (comparesHigher(rightChild(indexToCheck), leftChild(indexToCheck))) {
-                if (comparesHigher(rightChild(indexToCheck), indexToCheck)) {
+                    
+            } else if (comparesHigher(rightChild(indexToCheck), leftChild(indexToCheck))
+                && comparesHigher(rightChild(indexToCheck), indexToCheck)) {
                     // swap node checked with right child
-                    System.out.println("swapping right");
                     int[][] toCheckNode = heap[indexToCheck];
                     heap[indexToCheck] = heap[rightChild(indexToCheck)];
                     heap[rightChild(indexToCheck)] = toCheckNode;
-                    System.out.println(rightChild(indexToCheck) + " became " + indexToCheck);
                     indexToCheck = rightChild(indexToCheck);
-                }
+                    
             } else {
-                System.out.println("all ok");
                 break;
             }
         }
@@ -173,12 +161,12 @@ public class Heap {
         return copyOfRootNode;
     }
 
-    public void printDisShit(){
-        int i = 1;
-        System.out.println("HEAP NOW");
-        while(i < firstFreeNode){
-            System.out.print(heap[i][1][0] + ", ");
-            i++;
-        }
+    /**
+     * Check if heap is currently empty.
+     * 
+     * @return true if empty
+     */
+    public boolean isEmpty() {
+        return firstFreeNode == 1;
     }
 }

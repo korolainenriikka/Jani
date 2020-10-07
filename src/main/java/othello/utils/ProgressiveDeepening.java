@@ -5,8 +5,7 @@
  */
 package othello.utils;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import othello.utils.Heap;
 import static othello.api.Tile.*;
 
 /**
@@ -17,16 +16,14 @@ import static othello.api.Tile.*;
 public class ProgressiveDeepening {
 
     // heap iterated with odd depths and used for insertions with even depths
-    private static PriorityQueue<int[][]> oddHeap;
+    private static Heap oddHeap;
     // ... vice versa
-    private static PriorityQueue<int[][]> evenHeap;
+    private static Heap evenHeap;
 
     /**
      * Method implementing progressively deepening minimax; calls minimax with
      * incrementing depths and orders searched moves according to previous
      * search scores. Interrupts current iteration immediately at timeout.
-     *
-     * TODO: implement self-made min/max priorityqueue.
      *
      * @param board state of the game
      * @param player player to make the next move
@@ -42,11 +39,11 @@ public class ProgressiveDeepening {
         // minimax iteration
         int depth = 0;
         double infty = Double.POSITIVE_INFINITY;
-        PriorityQueue<int[][]> heapToIterate = oddHeap;
-        PriorityQueue<int[][]> heapToInsert = evenHeap;
+        Heap heapToIterate = oddHeap;
+        Heap heapToInsert = evenHeap;
         int[] currentBest = heapToIterate.peek()[0];
 
-        while ((System.nanoTime() - start) / 1e9 < 0.99) {
+        while ((System.nanoTime() - start) / 1e9 < 0.9) {
             depth++;
             if (depth % 2 == 0) {
                 heapToIterate = evenHeap;
@@ -70,8 +67,8 @@ public class ProgressiveDeepening {
                 heapToInsert.add(new int[][]{moveRecord[0], {score, 0}});
             }
         }
+        
         // just before timeout return currently highest evaluated move
-        System.out.println("returning: " + currentBest[0] + currentBest[1]);
         return currentBest;
     }
 
@@ -80,32 +77,13 @@ public class ProgressiveDeepening {
         // comparator minimaxscore
         // two heaps, one in iteration, one for inserting new nodes
         if (player == BLACK) {
-            //max heap
-            Comparator c = new Comparator<int[][]>() {
-                @Override
-                public int compare(int[][] o1, int[][] o2) {
-                    if ((o1[1][1] - o2[1][1]) == 0) {
-                        return -(o1[1][0] - o2[1][0]);
-                    }
-                    return o1[1][1] - o2[1][1];
-                }
-            };
-            oddHeap = new PriorityQueue<int[][]>(c);
-            evenHeap = new PriorityQueue<int[][]>(c);
+            //max heaps
+            oddHeap = new Heap(true);
+            evenHeap = new Heap(true);
         } else {
-            //min heap
-            Comparator c = new Comparator<int[][]>() {
-                @Override
-                public int compare(int[][] o1, int[][] o2) {
-                    if ((o1[1][1] - o2[1][1]) == 0) {
-                        return o1[1][0] - o2[1][0];
-                    }
-                    return o1[1][1] - o2[1][1];
-                }
-            };
-
-            oddHeap = new PriorityQueue<int[][]>(c);
-            evenHeap = new PriorityQueue<int[][]>(c);
+            //min heaps
+            oddHeap = new Heap(false);
+            evenHeap = new Heap(false);
         }
     }
 
@@ -119,5 +97,4 @@ public class ProgressiveDeepening {
             }
         }
     }
-
 }

@@ -20,12 +20,7 @@ public class Main {
      * @param args parameters specifying players etc, see readme
      */
     public static void main(String[] args) {
-        OthelloBot bot = new JaniPrgrs();
-        bot.startGame(2);
-        Board board = new Board();
-        bot.makeMove(BoardUtils.boardAfterMove(new int[]{2,3}, board.getAsArray(), 1));
-        
-        //UI.battle(new JaniRandom(), new JaniPrgrs(), true);
+        UI.battle(new JaniRandom(), new JaniPrgrs(), true);
 
         /*if (args.length == 0) {
             UI.battle(new OthelloHuman(), new OthelloHuman(), true);

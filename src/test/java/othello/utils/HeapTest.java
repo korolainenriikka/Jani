@@ -76,18 +76,28 @@ public class HeapTest {
         maxHeap.add(new int[][]{{0, 0}, {1, 0}});
         maxHeap.add(new int[][]{{0, 0}, {7, 0}});
         
-        System.out.println("rääl");
-        maxHeap.printDisShit();
-        /*assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {7, 0}}));
+        assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {7, 0}}));
         assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {6, 0}}));
         assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {4, 0}}));
         assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {3, 0}}));
         assert (Arrays.deepEquals(maxHeap.poll(), new int[][]{{0, 0}, {1, 0}}));
-        
-        System.out.println(maxHeap.poll()[1][0]);
-        System.out.println(maxHeap.poll()[1][0]);
-        System.out.println(maxHeap.poll()[1][0]);
-        System.out.println(maxHeap.poll()[1][0]);
-        System.out.println(maxHeap.poll()[1][0]);*/
+    }
+    
+    @Test
+    public void heapIsEmptyAfterInitialization() {
+        assert(minHeap.isEmpty());
+    }
+    
+    @Test
+    public void heapIsNotEmptyAfterNodeInserted() {
+        minHeap.add(new int[][]{{0, 0}, {4, 0}});
+        assert(!minHeap.isEmpty());
+    }
+    
+    @Test
+    public void heapIsEmptyAfterNodeInsertedAndPolled() {
+        minHeap.add(new int[][]{{0, 0}, {4, 0}});
+        minHeap.poll();
+        assert(minHeap.isEmpty());
     }
 }

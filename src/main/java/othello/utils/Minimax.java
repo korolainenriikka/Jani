@@ -6,8 +6,6 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
-import othello.utils.BoardUtils;
-import othello.utils.Evaluators;
 
 /**
  * Variations of minimax: standard algorithm, standard + ab-pruning, standard +
@@ -18,7 +16,7 @@ import othello.utils.Evaluators;
 public class Minimax {
 
     /**
-     * Apha-beta-pruning minimax with timeout.
+     * Apha-beta-pruning minimax with timeout. Used by progressive deepening.
      *
      * @param board current state of game
      * @param player the color whose turn it is
@@ -28,12 +26,10 @@ public class Minimax {
      */
     public static double minimaxAlphaBetaWithTimeout(int[][] board, int player, int depth, double a, double b, long startTime) {
         if ((System.nanoTime() - startTime) / 1e9 > 0.99) {
-            System.out.println("timeout!!!");
             return 0;
         }
 
         if (BoardUtils.gameOver(board)) {
-            System.out.println("game over");
             //convert winner return value to a weighed score
             return Evaluators.winEvaluator(board) * 1000;
         }
