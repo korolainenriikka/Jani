@@ -116,9 +116,10 @@ public class JaniAlphaTileScorer implements OthelloBot {
 
     /**
      * For performance testing.
-     * 
+     *
      * @param board state of the game
      * @param customDepth depth to compute minimax
+     * @return best move as {row, col} array 
      */
     public int[] makeMoveCustomDepth(int[][] board, int customDepth) {
         long start = System.nanoTime();

@@ -20,10 +20,8 @@ public class Main {
      * @param args parameters specifying players etc, see readme
      */
     public static void main(String[] args) {
-        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
-        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
 
-        /*if (args.length == 0) {
+        if (args.length == 0) {
             UI.battle(new OthelloHuman(), new OthelloHuman(), true);
         } else if (args.length == 1) {
             OthelloBot bot = createBotFromClassName("othello.bots." + args[0]);
@@ -47,7 +45,7 @@ public class Main {
         } else {
             System.out.println("Invalid arguments; USAGE: java -jar pathto.jar"
                     + " BotClass1 [BotClass2] [NumberOfGames]");
-        }*/
+        }
     }
 
     /**

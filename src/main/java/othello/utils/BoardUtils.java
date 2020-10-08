@@ -20,7 +20,7 @@ public class BoardUtils {
      * inspected.
      */
     static final int[][] DIRECTIONS = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1},
-    {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+        {0, 1}, {1, -1}, {1, 0}, {1, 1}};
     /**
      * Size of the othello board.
      */

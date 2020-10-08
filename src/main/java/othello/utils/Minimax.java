@@ -17,12 +17,15 @@ import static othello.utils.GamePhase.*;
 public class Minimax {
 
     /**
-     * Apha-beta-pruning minimax with timeout. Used by progressive deepening.
-     * Uses improved mobility evaluation during midgame
+     * Apha-beta-pruning minimax with timeout.Used by progressive deepening.Uses improved mobility evaluation during midgame.
      *
      * @param board current state of game
      * @param player the color whose turn it is
      * @param depth current depth of recursion
+     * @param a current alpha value
+     * @param b current beta value
+     * @param startTime timestamp of start of computation
+     * @param phase current gamephase
      * @return desirability of board, +-1000=game over, between -1000 and 1000
      * state desirability
      */
@@ -107,6 +110,8 @@ public class Minimax {
      * @param board current state of game
      * @param player the color whose turn it is
      * @param depth current depth of recursion
+     * @param a current alpha value
+     * @param b current beta value
      * @return desirability of board, +-1000=game over, between -1000 and 1000
      * state desirability
      */

@@ -70,13 +70,14 @@ public class Evaluators {
      *
      * @param board current state of the game
      * @param player player playing currently
-     * @return
+     * @return int value representing desirability of game state
      */
     public static int midgameEvaluator(int[][] board, int player) {
         //mid-game evaluation: mobility-maximizing (count of moves available)
         //minimize own frontier maximize moves one has
         int ownFrontier = 0;
         int mobility = 0;
+
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (BoardUtils.isAllowed(j, j, player, board)) {
@@ -106,9 +107,10 @@ public class Evaluators {
     }
 
     /**
-     * End-game evaluation: edge stability + count of discs
+     * End-game evaluation: edge stability + count of discs.
      *
      * @param board current state of game
+     * @param player player whose turn it is
      * @return evaluation score
      */
     public static int endgameEvaluator(int[][] board, int player) {

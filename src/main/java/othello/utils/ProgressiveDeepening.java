@@ -28,6 +28,7 @@ public class ProgressiveDeepening {
      * @param board state of the game
      * @param player player to make the next move
      * @param printsOn enable prints for performance tests
+     * @param phase current phase of game
      * @return move in a {row, col} array
      */
     public static int[] findBestMove(int[][] board, int player, boolean printsOn, GamePhase phase) {
