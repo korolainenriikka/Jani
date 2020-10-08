@@ -42,7 +42,7 @@ date | hours | what I did
 date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 7.10 | 6 | heap finished, better evaluation, tests, research
-8.10 | |
+8.10 | 4 | transposition table research and implementation
 9.10 | |
 
 ## Totals
@@ -53,6 +53,6 @@ week | hours
 3 | 15,5
 4 | 8,5
 5 | 7,5
-6 | 6
+6 | 10
 
-Grand total: 64,5 hours
+Grand total: 68,5 hours
