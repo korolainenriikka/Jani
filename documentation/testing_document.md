@@ -19,68 +19,6 @@ Re-run tests with `mvn test` in repository root.
 
 Performance tests are implemented for both standard and iteratively deepening minimax to check how deep the program computes with various evaluators etc.
 
-The board states used in the tests are the following:
-
-opening:
-
-  a b c d e f g h 
-  
-1| | | | | | | | |
-
-2| | | | | | | | |
-
-3| | | | | | | | |
-
-4| | | |○|#| | | |
-
-5| | | |#|○| | | |
-
-6| | | | | | | | |
-
-7| | | | | | | | |
-
-8| | | | | | | | |
-
-
-midgame:
-
- a b c d e f g h 
-
-1| |○|#|#|#|#|#| |
-
-2|○|○|#|○|○|○|○| |
-
-3| |○|#|#|#|○|○| |
-
-4| | |○|#|○|○|○| |
-
-5| | |#|○|○| |○| |
-
-6| | | |○|○|○| | |
-
-7| | | | | | | | |
-
-8| | | | | | | | |
-
-endgame:
-
- a b c d e f g h 
-
-1| | |#|#|#|#| | |
-
-2|#|○|○|○|○|○|○| |
-
-3|#|#|○|#|#|○|○|#|
-
-4|#|○|#|○|○|#|○|#|
-
-5|#|○|#|○|○|#|○|#|
-
-6|#|#|○|#|○|○|○|#|
-
-7|#|○|○|○|○|○|○| |
-
-8| |#| |○|○|○|○| |
 
 ### Empirical results of performance tests
 <!-- 
