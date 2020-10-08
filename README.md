@@ -17,6 +17,7 @@ Bots currently supported:
 * JaniRandom: a bot playing randomly.
 * JaniTileScorer: a simple minimax bot trying to maximize count of pieces in strategically important tiles.
 * JaniAlphaTileScorer: a pruning minimax using the same tile-scoring evaluation as tileScorer.
+* JaniPrgrs: ab-pruning + progressive deepening + game state dependent evaluator
 
 ## Other command-line arguments
 
