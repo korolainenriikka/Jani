@@ -10,7 +10,9 @@
 
 * AlphaTileScorer: alpha-beta pruning minimax with weighed tile scoring
 
-* Prgrs: a-b pruning progressively deepening minimax with mobility/stability evaluation (in development)
+* Prgrs: a-b pruning progressively deepening minimax with mobility/stability evaluation
+
+* SuperBot: same as prgrs + transposition table
 
 ## The features
 
@@ -22,9 +24,9 @@ Implemented very similar to the standard pseudocode; as a terminal state is used
 
 Progressive deepening uses the big branching factor of the game to its advantege, computes evaluations on every depth iteratively and orders moves by the evaluation scores between every iteration, which is implemented as a min/max heap. This allows the algorithm to alter minimax search depth dynamically to perform the deepest possible search in any situtaion within the time constraint.
 
-### Transistion table (for later versions)
+### Transposition table
 
-A data stucture for speeding up end of game computation. When minimax calculates to a terminal game state, it hashes the evaluation score of the searched states. This should speed up end-of-game computation up to 50 %. A transistion table is also said to be crucial with progressive deepening, but this idea requires further research.
+A hash table storing entries for already searched game states. Entries have types exact, min and max and contain evaluator values and moves estimated best in a situation. The table uses Zobrist hashing and a replacement scheme to decide which entries should be replaced in case of hash collision. Evaluation values are used to save computation, best move to further improve progressive deepening.
 
 
 ## Sources
@@ -35,4 +37,8 @@ A data stucture for speeding up end of game computation. When minimax calculates
 [on strong othello bots](https://link.springer.com/content/pdf/10.1007/978-0-387-35660-0_10.pdf)
 
 [samsoft strategy](http://samsoft.org.uk/reversi/strategy.htm#rules)
+
+[transposition table implementation](https://web.archive.org/web/20071031100051/http://www.brucemo.com/compchess/programming/hashing.htm)
+
+[zobrist hashing](https://en.wikipedia.org/wiki/Zobrist_hashing)
 
