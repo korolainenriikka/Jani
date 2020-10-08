@@ -22,36 +22,64 @@ Performance tests are implemented for both standard and iteratively deepening mi
 The board states used in the tests are the following:
 
 opening:
+
   a b c d e f g h 
+  
 1| | | | | | | | |
+
 2| | | | | | | | |
+
 3| | | | | | | | |
+
 4| | | |○|#| | | |
+
 5| | | |#|○| | | |
+
 6| | | | | | | | |
+
 7| | | | | | | | |
+
 8| | | | | | | | |
 
+
 midgame:
-  a b c d e f g h 
+
+ a b c d e f g h 
+
 1| |○|#|#|#|#|#| |
+
 2|○|○|#|○|○|○|○| |
+
 3| |○|#|#|#|○|○| |
+
 4| | |○|#|○|○|○| |
+
 5| | |#|○|○| |○| |
+
 6| | | |○|○|○| | |
+
 7| | | | | | | | |
+
 8| | | | | | | | |
 
 endgame:
-  a b c d e f g h 
+
+ a b c d e f g h 
+
 1| | |#|#|#|#| | |
+
 2|#|○|○|○|○|○|○| |
+
 3|#|#|○|#|#|○|○|#|
+
 4|#|○|#|○|○|#|○|#|
+
 5|#|○|#|○|○|#|○|#|
+
 6|#|#|○|#|○|○|○|#|
+
 7|#|○|○|○|○|○|○| |
+
 8| |#| |○|○|○|○| |
 
 ### Empirical results of performance tests
@@ -67,10 +95,11 @@ The bots playing against each other yielded the following results, percentiles c
 
 * Random v AlphaTileScorer: 56% of games won by Alpha
 
+* Random v Prgrs: 88% of games won by prgrs
+
 * TileScorer v AlphaTileScorer: player 2 wins every time whichever bot is player 2
 
-* Prgrs wins all non-random bots
+* Prgrs wins all non-random bots every time
 
-* Random v Prgrs:
 
-* Prgrs v Random: 
+
