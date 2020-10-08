@@ -1,3 +1,12 @@
+<!--
+Toteutusdokumentti
+
+    Ohjelman yleisrakenne: aika guud atm
+    Saavutetut aika- ja tilavaativuudet (m.m. O-analyysit pseudokoodista): PUUTTUU
+    Suorituskyky- ja O-analyysivertailu (mikäli työ vertailupainotteinen): PUUTTUU
+    Työn mahdolliset puutteet ja parannusehdotukset: semiok
+    Lähteet-->
+
 # Implementation document
 
 ## Current bots
@@ -28,6 +37,15 @@ Progressive deepening uses the big branching factor of the game to its advantege
 
 A hash table storing entries for already searched game states. Entries have types exact, min and max and contain evaluator values and moves estimated best in a situation. The table uses Zobrist hashing and a replacement scheme to decide which entries should be replaced in case of hash collision. Evaluation values are used to save computation, best move to further improve progressive deepening.
 
+# Time / space complexities achieved
+
+# Improvements and flaws left in the program
+
+* Evaluation function is not very refined, this would require experimentation and in best case implementation of machine learning features
+
+* Permanent data storage on good opening mvoes (opening book). Self-improving.
+
+* Generally the testing of the program is not very good; it is especially hard to test AI. The functionalities of core features were tested with prints.
 
 ## Sources
 [CS cornell: othello](http://www.cs.cornell.edu/~yuli/othello/othello.html)
