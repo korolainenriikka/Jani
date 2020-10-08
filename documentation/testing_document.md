@@ -11,7 +11,7 @@
 # Testing Document
 
 ## Test coverage:
-<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/test_coverage_week6.png"/>
+<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/testcoverage_week6.png"/>
 
 Re-run tests with `mvn test` in repository root.
 
