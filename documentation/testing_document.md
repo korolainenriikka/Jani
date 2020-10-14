@@ -33,7 +33,7 @@ The bots playing against each other yielded the following results, percentiles c
 
 * Random v AlphaTileScorer: 56% of games won by Alpha
 
-* Random v Prgrs: 88% of games won by prgrs
+* Random v Prgrs: 88% of games won by prgrs (bot improved after this result)
 
 * TileScorer v AlphaTileScorer: player 2 wins every time whichever bot is player 2
 
