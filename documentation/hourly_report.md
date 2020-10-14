@@ -43,7 +43,12 @@ date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 7.10 | 6 | heap finished, better evaluation, tests, research
 8.10 | 4 | transposition table research and implementation
-9.10 | |
+
+## Week 7
+
+date | hours | what I did
+------------ | ------------- | -----------------------------------------------
+14.10 | 2 | transposition implementation & more research, debug and tests
 
 ## Totals
 week | hours
