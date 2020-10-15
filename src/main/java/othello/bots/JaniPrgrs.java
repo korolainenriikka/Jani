@@ -58,7 +58,7 @@ public class JaniPrgrs implements OthelloBot {
             phase = ENDGAME;
         }
         
-        int[] move = ProgressiveDeepening.findBestMove(board, player, false, phase);
+        int[] move = ProgressiveDeepening.findBestMove(board, player, false, phase, false, null);
         return move;
     }
 

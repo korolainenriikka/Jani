@@ -15,15 +15,23 @@
 
 Re-run tests with `mvn test` in repository root.
 
+Unit tests of AI were written with game states with known best next moves. As there are very few situations like this, the quality of unit tests is not ideal.
+
 ## Performance tests
 
-Performance tests are implemented for both standard and iteratively deepening minimax to check how deep the program computes with various evaluators etc.
+Performance tests are implemented for both standard and iteratively deepening minimax to check how deep the program computes with various minimax versions.
+
+The performance testing was performed used three hardcoded game states from start, middle and the end of the game. The tests measure how deep minimax / pruning minimax / iteratively deepening minimax computes within the 1.0 sec time constraint. These results can be used as an approximation of the actual depths, however, there are extreme cases where the depth reached can be unusually small / large. No checks were done to assure that the game states selected for performance tests are exceptional in this sense.
 
 
 ### Empirical results of performance tests
-<!-- 
-tänne joku grafiikka mitähelee
--->
+The output of the performance tests are as follows:
+
+<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/performanceresults.png"/>
+
+Progressive deepening tests are in order beginning -> midgame -> endgame.
+
+In individual battles using progressive deepening the depths were in range 7-18, without iteration 5-8.
 
 ## Game results:
 

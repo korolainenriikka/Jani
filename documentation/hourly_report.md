@@ -49,6 +49,7 @@ date | hours | what I did
 date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 14.10 | 2 | transposition implementation & more research, debug and tests
+15.10 | 4 | transposition table, documentation finishing
 
 ## Totals
 week | hours

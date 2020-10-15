@@ -63,10 +63,22 @@ public class Evaluators {
         }
         return score;
     }
+    
+    /**
+     * Opening evaluation: own mobility maximizing and frontier minimizing.
+     * 
+     * @param board
+     * @param player
+     * @return 
+     */
+    public static int openingEvaluator(int[][] board, int player) {
+        int score = mobilityScore(board, player);
+        return player == BLACK ? score : -1 * score;
+    }
 
     /**
-     * Evaluation function for midgame: minimizes own frontier and maximizes own
-     * mobility.
+     * Evaluation function for midgame: weighed linear combination of mobility
+     * and position scoring.
      *
      * @param board current state of the game
      * @param player player playing currently
@@ -75,17 +87,22 @@ public class Evaluators {
     public static int midgameEvaluator(int[][] board, int player) {
         //mid-game evaluation: mobility-maximizing (count of moves available)
         //minimize own frontier maximize moves one has
+        int score = mobilityScore(board, player) + (stateEvaluator(board) / 10);
+        return player == BLACK ? score : -1 * score;
+    }
+
+    private static int mobilityScore(int[][] board, int player) {
         int ownFrontier = 0;
         int mobility = 0;
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (BoardUtils.isAllowed(j, j, player, board)) {
+                if (BoardUtils.isAllowed(i, j, player, board)) {
                     mobility++;
                 }
                 for (int[] d : DIRECTIONS) {
                     int adjacentRow = i + d[0];
-                    int adjacentCol = i + d[1];
+                    int adjacentCol = j + d[1];
 
                     if (BoardUtils.withinBoard(adjacentRow, adjacentCol)
                             && board[i][j] == 0
@@ -98,12 +115,7 @@ public class Evaluators {
             }
         }
 
-        int score = (mobility - ownFrontier) * 10;
-        if (player == BLACK) {
-            return score;
-        } else {
-            return -1 * score;
-        }
+        return (mobility - ownFrontier) * 10;
     }
 
     /**
@@ -173,4 +185,5 @@ public class Evaluators {
 
         return discCount;
     }
+
 }

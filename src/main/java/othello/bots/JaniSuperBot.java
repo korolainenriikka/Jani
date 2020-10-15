@@ -6,7 +6,9 @@
 package othello.bots;
 
 import othello.api.OthelloBot;
-import othello.utils.TranspositionTable;
+import static othello.api.Tile.BLACK;
+import othello.utils.*;
+import static othello.utils.GamePhase.*;
 
 /**
  * The final bot using ab-pruning minimax + game phase dependent evaluation +
@@ -24,6 +26,10 @@ public class JaniSuperBot implements OthelloBot {
 
     private TranspositionTable table;
 
+    private int movesMade;
+
+    private GamePhase phase;
+
     /**
      * Initialize transposition & player.
      *
@@ -32,7 +38,10 @@ public class JaniSuperBot implements OthelloBot {
     @Override
     public void startGame(int player) {
         this.player = player;
+        this.table = new TranspositionTable();
         table.generateZobristIdentifiers();
+        this.movesMade = 0;
+        this.phase = OPENING;
     }
 
     /**
@@ -44,7 +53,17 @@ public class JaniSuperBot implements OthelloBot {
     @Override
     public int[] makeMove(int[][] board) {
         table.clear();
-        return new int[]{0, 0};
+        movesMade++;
+        if (movesMade == 10) {
+            phase = MIDGAME;
+        }
+
+        if (movesMade == 20) {
+            phase = ENDGAME;
+        }
+
+        int[] move = ProgressiveDeepening.findBestMove(board, player, true, phase, true, table);
+        return move;
     }
 
     /**

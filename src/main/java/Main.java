@@ -4,8 +4,8 @@ import othello.bots.*;
 import othello.ui.UI;
 
 import java.lang.reflect.InvocationTargetException;
+import static othello.api.Tile.BLACK;
 import othello.domain.Board;
-import othello.utils.BoardUtils;
 
 /**
  * Initialize bots and launch game or tournament.
@@ -20,7 +20,9 @@ public class Main {
      * @param args parameters specifying players etc, see readme
      */
     public static void main(String[] args) {
-
+        UI.tournament(new JaniRandom(), new JaniPrgrs(), 100);
+        UI.tournament(new JaniPrgrs(), new JaniRandom(), 100);
+        /*
         if (args.length == 0) {
             UI.battle(new OthelloHuman(), new OthelloHuman(), true);
         } else if (args.length == 1) {
@@ -45,7 +47,7 @@ public class Main {
         } else {
             System.out.println("Invalid arguments; USAGE: java -jar pathto.jar"
                     + " BotClass1 [BotClass2] [NumberOfGames]");
-        }
+        }*/
     }
 
     /**

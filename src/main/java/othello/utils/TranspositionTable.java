@@ -6,10 +6,12 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
+import static othello.utils.EntryType.ALPHA;
+import static othello.utils.EntryType.EXACT;
 
 /**
- * Transposition table parts and pieces, trials n errors :) Currently working on
- * this unfamiliar ground, might become something useful might not.
+ * Data structure for storing data on the game thus far; table containing
+ * entries with the data received from previous searched.
  *
  * @author riikoro
  */
@@ -19,7 +21,7 @@ public class TranspositionTable {
      * Unique numbers representing a piece in a tile. index 0: black in [0][0],
      * 1: white in [0][0], 2: black in [0][1]...
      */
-    private long[] pieceIdentifiers;
+    private static long[] pieceIdentifiers;
     /**
      * The actual table, not implemented yet
      */
@@ -42,14 +44,14 @@ public class TranspositionTable {
     /**
      * Generated unique 64-bit numbers for each piece in a tile.
      */
-    public void generateZobristIdentifiers() {
+    public static void generateZobristIdentifiers() {
         pieceIdentifiers = new long[128];
         for (int i = 0; i < pieceIdentifiers.length; i++) {
             pieceIdentifiers[i] = generateRandom64bLong();
         }
     }
 
-    private long generateRandom64bLong() {
+    private static long generateRandom64bLong() {
         long randDivider = System.nanoTime() % 10 + 1;
         long rand = System.nanoTime() / randDivider;
         return rand;
@@ -62,7 +64,7 @@ public class TranspositionTable {
      * @param board state of the game
      * @return hash code of the board state
      */
-    public long hashCode(int[][] board) {
+    public static long hashCode(int[][] board) {
         long hashCode = 0;
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -75,14 +77,13 @@ public class TranspositionTable {
                 if (board[i][j] == WHITE) {
                     hashCode ^= pieceIdentifiers[2 * (i * 8 + j) + 1];
                 }
-
             }
         }
         return hashCode;
     }
     
     /**
-     * For efficient comparison-based hashing. Todo.
+     * For efficient comparison-based hashing.
      * 
      * @param newBoard board state to be hashed
      * @param prevBoard previous board state
@@ -111,23 +112,45 @@ public class TranspositionTable {
      * @param e entry to add to table.
      */
     public void add(TableEntry e) {
-        int tableLocation = (int) e.getHashCode() % TABLE_SIZE;
-        transpositionTable[tableLocation] = e;
+        int tableLocation = (int) (e.getHashCode() % TABLE_SIZE);
+
+        //if (transpositionTable[tableLocation] == null) {
+            transpositionTable[tableLocation] = e;
+        /*} else {
+            TableEntry entryInTable = transpositionTable[tableLocation];
+
+            // exact replaces a/b, deeper replaces
+            if ((e.getDepth() >= entryInTable.getDepth()) ||
+                    (e.getType() == EXACT && entryInTable.getType() != EXACT)) {
+                transpositionTable[tableLocation] = e;
+            }
+        }*/
+    }
+    
+    public boolean hasAssociatedData(int[][] gameState) {
+        long hashCode = hashCode(gameState);
+        int location = (int) (hashCode % TABLE_SIZE);
+        if (transpositionTable[location] != null && transpositionTable[location].getHashCode()== hashCode){
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Get data associated with the searched game state. Returns null if table
-     * has no associated data.
+     * Get data associated with the searched game state. 
+     * 
+     * TODO: return value if no entry?
      * 
      * @param gameState state of the game searched.
      * @return associated tableEntry
      */
     public TableEntry get(int[][] gameState) {
         long hashCode = hashCode(gameState);
-        int tableLocation = (int) hashCode % TABLE_SIZE;
+        int tableLocation = (int) (hashCode % TABLE_SIZE);
         if (transpositionTable[tableLocation].getHashCode() == hashCode) {
             return transpositionTable[tableLocation];
         }
-        return null;
+        // if no data present, run hasAssociatedData before get to avoid
+        return new TableEntry(new int[1][1],0,ALPHA,0,new int[1]);
     }
 }

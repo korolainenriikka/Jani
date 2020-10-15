@@ -21,14 +21,14 @@ public class TableEntry {
      */
     private int depth;
     /**
-     * 0 = exact hash, 1 = alpha hash (exact value less than this) 2 = beta hash
-     * (exact value more than this)
+     * EXACT / ALPHA / BETA = the score at computed depth exactly / at least / less than the stored score
+     * CHECK THIS
      */
-    private int type;
+    private EntryType type;
     /**
      * Evaluation value of the position
      */
-    private int value;
+    private int minimaxScore;
     /**
      * Best evaluated next move in this position
      */
@@ -37,18 +37,18 @@ public class TableEntry {
     /**
      * Initialize new entry.
      * 
-     * @param hashCode full zobrist hash
      * @param depth depth of computation
      * @param type a, b or exact
      * @param bestMove best move at this stage
      */
-    public TableEntry(long hashCode, int depth, int type, int[] bestMove) {
-        this.hashCode = hashCode;
+    public TableEntry(int[][] board, int depth, EntryType type, int value, int[] bestMove) {
+        this.hashCode = TranspositionTable.hashCode(board);
         this.depth = depth;
         this.type = type;
+        this.minimaxScore = value;
         this.bestMove = bestMove;
     }
-
+    
     /**
      * Returns the exact hash value of this game state.
      * 
@@ -57,5 +57,43 @@ public class TableEntry {
     public long getHashCode() {
         return hashCode;
     }
+
+    /**
+     * Get depth param.
+     * 
+     * @return depth param
+     */
+    public int getDepth() {
+        return depth;
+    }
+
+    /**
+     * Get entry type param.
+     * 
+     * @return depth param
+     */
+    public EntryType getType() {
+        return type;
+    }
+
+    /**
+     * Get minimaxScore param.
+     * 
+     * @return depth param
+     */
+    public int getMinimaxScore() {
+        return minimaxScore;
+    }
+
+    /**
+     * Get best move param.
+     * 
+     * @return depth param
+     */
+    public int[] getBestMove() {
+        return bestMove;
+    }
+    
+    
 
 }

@@ -5,10 +5,6 @@
  */
 package othello.utils;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static othello.api.Tile.WHITE;
@@ -18,19 +14,42 @@ import static othello.api.Tile.WHITE;
  * @author riikoro
  */
 public class EvaluatorsTest {
-    
+
     @Test
-    public void weighedScorerCalculatesRight() {
-        
+    public void weighedScorerComputedRight() {
+        int[][] board = new int[][]{
+            {1, 0, 0, 0, 0, 0, 0, 1},
+            {0, 2, 0, 0, 0, 0, 2, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 2, 0, 0, 0},
+            {0, 0, 0, 2, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 0, 0, 2, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1}
+        };
+
+        assertEquals(492, Evaluators.stateEvaluator(board));
     }
 
     @Test
-    public void midgameEvaluatorCalculatesRight() {
-        
+    public void mobilityScoresComputedRight() {
+        // mobility: 5
+        // frontier: 12
+        // (5-12)*10 *-1 = 90
+        int[][] board = new int[][]{
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 1, 2, 0, 0, 0, 0},
+            {0, 0, 1, 1, 0, 0, 0, 0},
+            {0, 0, 0, 1, 1, 0, 0, 0},
+            {0, 0, 0, 2, 1, 1, 0, 0},
+            {0, 0, 0, 2, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},};
+        assertEquals(70, Evaluators.openingEvaluator(board, WHITE));
     }
-    
+
     @Test
-    public void endgameEvaluatorsCalculatesRight() {
+    public void endgameEvaluatorsComputedRight() {
         int[][] board = new int[][]{
             {2, 2, 2, 0, 0, 0, 2, 2},
             {2, 0, 0, 0, 0, 0, 0, 2},

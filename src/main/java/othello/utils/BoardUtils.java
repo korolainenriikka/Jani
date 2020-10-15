@@ -35,8 +35,8 @@ public class BoardUtils {
      * @param board current state of the board
      * @return if the move is allowed or not
      */
-    public static boolean isAllowed(final int row, final int col,
-            final int player, final int[][] board) {
+    public static boolean isAllowed(int row, int col,
+            int player, int[][] board) {
         if (!withinBoard(row, col)
                 || board[row][col] != 0) {
             return false;
@@ -78,7 +78,7 @@ public class BoardUtils {
      * @param col column index
      * @return if indices are valid
      */
-    public static boolean withinBoard(final int row, final int col) {
+    public static boolean withinBoard(int row, int col) {
         if (row >= 0 && col >= 0 && row < SIZE && col < SIZE) {
             return true;
         }
@@ -93,8 +93,8 @@ public class BoardUtils {
      * @param player the player whose turn it is
      * @return a copy of the board with the new state
      */
-    public static int[][] boardAfterMove(final int[] move,
-            final int[][] board, final int player) {
+    public static int[][] boardAfterMove(int[] move,
+            int[][] board, int player) {
 
         int[][] afterMove = copy2dArray(board);
         int moveRow = move[0];
@@ -172,7 +172,7 @@ public class BoardUtils {
      * @param boardState state of the game
      * @return int value 1 for black, 0 for even, -1 for white
      */
-    public static int winner(final int[][] boardState) {
+    public static int winner(int[][] boardState) {
         int blackScore = 0;
         int whiteScore = 0;
 

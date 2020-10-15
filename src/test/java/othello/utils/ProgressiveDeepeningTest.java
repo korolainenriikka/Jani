@@ -30,7 +30,7 @@ public class ProgressiveDeepeningTest {
     @Test
     public void returnsValidOpeningMove() {
         // opening moves are equal due to symmetry
-        int[] move = ProgressiveDeepening.findBestMove(board, BLACK, false, OPENING);
+        int[] move = ProgressiveDeepening.findBestMove(board, BLACK, false, OPENING, false, null);
         assert ((move[0] == 2 && move[1] == 3)
                 || (move[0] == 3 && move[1] == 2)
                 || (move[0] == 4 && move[1] == 5)
@@ -50,14 +50,14 @@ public class ProgressiveDeepeningTest {
             {2, 2, 2, 2, 2, 2, 1, 1},
             {2, 1, 1, 1, 1, 1, 1, 1}
         };
-        int[] move = ProgressiveDeepening.findBestMove(gameState, WHITE, false, ENDGAME);
+        int[] move = ProgressiveDeepening.findBestMove(gameState, WHITE, false, ENDGAME, false, null);
         assert (move[0] == 0 && move[1] == 6);
     }
 
     @Test
     public void usesAllAvailableTimeForAllMoveDecisions() {
         long start = System.nanoTime();
-        ProgressiveDeepening.findBestMove(board, BLACK, false, OPENING);
+        ProgressiveDeepening.findBestMove(board, BLACK, false, OPENING, false, null);
         assert (((System.nanoTime() - start) / 1e9) > 0.9);
     }
 }

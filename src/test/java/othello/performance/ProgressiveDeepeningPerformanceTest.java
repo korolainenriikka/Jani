@@ -18,7 +18,7 @@ import othello.utils.ProgressiveDeepening;
  */
 public class ProgressiveDeepeningPerformanceTest {
     
-    /*@Test
+    @Test
     public void tileScoringOpeningDepth() {
         int[][] openingBoard = {
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -30,7 +30,7 @@ public class ProgressiveDeepeningPerformanceTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}
         };
-        ProgressiveDeepening.findBestMove(openingBoard, BLACK, true, OPENING);
+        ProgressiveDeepening.findBestMove(openingBoard, BLACK, true, OPENING, false, null);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ProgressiveDeepeningPerformanceTest {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}
         };
-        ProgressiveDeepening.findBestMove(midgameBoard, BLACK, true, MIDGAME);
+        ProgressiveDeepening.findBestMove(midgameBoard, BLACK, true, MIDGAME, false, null);
     }
 
     @Test
@@ -60,6 +60,6 @@ public class ProgressiveDeepeningPerformanceTest {
             {1, 2, 2, 2, 2, 2, 2, 0},
             {0, 1, 0, 2, 2, 2, 2, 0}
         };
-        ProgressiveDeepening.findBestMove(endgameBoard, BLACK, true, ENDGAME);
-    }*/
+        ProgressiveDeepening.findBestMove(endgameBoard, BLACK, true, ENDGAME, false, null);
+    }
 }

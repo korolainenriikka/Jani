@@ -71,7 +71,7 @@ public class MiniMaxPerformanceTest {
         }
     }
 
-    /*@Test
+    @Test
     public void openingDepth() {
         int[][] openingBoard = {
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -114,5 +114,5 @@ public class MiniMaxPerformanceTest {
             {0, 1, 0, 2, 2, 2, 2, 0}
         };
         testPerformance("Endgame", endgameBoard);
-    }*/
+    }
 }

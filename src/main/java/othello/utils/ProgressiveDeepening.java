@@ -29,9 +29,11 @@ public class ProgressiveDeepening {
      * @param player player to make the next move
      * @param printsOn enable prints for performance tests
      * @param phase current phase of game
+     * @param usesMemory true if bot implements a transposition table
+     * @param table transposition table, null if no memory usage
      * @return move in a {row, col} array
      */
-    public static int[] findBestMove(int[][] board, int player, boolean printsOn, GamePhase phase) {
+    public static int[] findBestMove(int[][] board, int player, boolean printsOn, GamePhase phase, boolean usesMemory, TranspositionTable table) {
         long start = System.nanoTime();
 
         // initialization
@@ -64,8 +66,14 @@ public class ProgressiveDeepening {
                 int[][] boardAfterMove = BoardUtils
                         .boardAfterMove(moveRecord[0], board, player);
                 int opponent = player == BLACK ? WHITE : BLACK;
-                int score = Minimax.minimaxAlphaBetaWithTimeout(
+                
+                int score;
+                if (usesMemory) {
+                    score = Minimax.minimaxWithMemory(boardAfterMove, opponent, depth, -1 * infty, infty, start, phase, table);
+                } else {
+                    score = Minimax.minimaxAlphaBetaWithTimeout(
                         boardAfterMove, opponent, depth, -1 * infty, infty, start, phase);
+                }
                 heapToInsert.add(new int[][]{moveRecord[0], {score, 0}});
             }
         }
