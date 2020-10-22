@@ -33,7 +33,7 @@ The transposition table is a hash table containing moves and the data received w
 
 The time complexity of minimax is O(b^d), where b is the branching factor (amout of possible moves) and d is the depth of the tree. The branching factor is around 10, but can fluctuate between 1-20 throughout the game. The computation depth is chosen so that the time limit of the game is not exceeded.
 
-Alpha-beta pruning with optimal move ordering is shown to be able to cut off up to 50% of the game tree, so the time complexity is at best O(b^(d/2)). Move ordering is completely implemented only on top level, so the actual complexity lies somewhere between these estimates.
+Alpha-beta pruning with optimal move ordering is shown to be able to cut off up to 50% of the game tree, so the time complexity is at best O(b^(d/2)). Move ordering is completely implemented only on top level, so the actual complexity lies somewhere between O(b^(d/2)) and O(b^d)
 
 The computation cost of progressive deepening is surprisingly neglible; The exact time complexity of a progressively-deepening minimax computing to depth d-1, marked O(p) is derived in the following:
 
