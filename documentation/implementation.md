@@ -46,13 +46,13 @@ Iterative deepening adds around 10% of computation, but as it allows dynamic cha
 The transposition table added a lot of space usage and proved to have neglible improvements on perfomance. However, this was implemented on the last week as more of an experiment and would probably have needed more refinement to see significant performance increase. 
 
 # Improvements and flaws left in the program
-* The transposition table is very much unfinished, it was implemented more for the sake of experimentation than as a necessary part of the bot program
+* The transposition table could be improved a lot, it was implemented more for the sake of experimentation than as a necessary part of the bot program
 
 * Evaluation function is not very refined, this would require experimentation and in best case implementation of machine learning features
 
 * Permanent data storage on good opening moves (opening book).
 
-* Generally the testing of the program is not very good; it is especially hard to test AI. The functionalities of core features were tested with prints.
+* Generally unit testing of the program is not very good; it is especially hard to test AI.
 
 * Code quality is not ideal as there are many bots using different versions of the used algorithms, which causes a lot of repetition in the code. However, the approach was good considering that possibilities for comparative analysis were greatly increased.
 
