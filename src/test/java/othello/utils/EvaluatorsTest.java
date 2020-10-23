@@ -7,13 +7,23 @@ package othello.utils;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static othello.api.Tile.WHITE;
+import static othello.api.Tile.*;
 
 /**
  *
  * @author riikoro
  */
 public class EvaluatorsTest {
+
+    @Test
+    public void winEvaluatorReturnVaueEqualsBoardUtilWinningValue() {
+        int[][] board = new int[8][8];
+        board[3][3] = WHITE;
+        board[3][4] = BLACK;
+        board[4][3] = BLACK;
+        board[4][4] = WHITE;
+        assertEquals(BoardUtils.winner(board), Evaluators.winEvaluator(board));
+    }
 
     @Test
     public void weighedScorerComputedRight() {

@@ -31,8 +31,7 @@ public class JaniRandom implements OthelloBot {
     }
 
     /**
-     * Finds all possible moves and picks one randomly. Tried to implement
-     * without arraylist but bot broke :(
+     * Finds all possible moves and picks one randomly.
      *
      * @param boardState current state of the game
      * @return move coordinates in form {row, col}
@@ -65,5 +64,4 @@ public class JaniRandom implements OthelloBot {
     public boolean isHuman() {
         return false;
     }
-
 }

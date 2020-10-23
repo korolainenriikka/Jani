@@ -6,7 +6,6 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
-import othello.ui.UI;
 
 /**
  * Basic utilities for board analyzing, used by all bots.

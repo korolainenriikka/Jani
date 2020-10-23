@@ -6,8 +6,7 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
-import static othello.utils.EntryType.ALPHA;
-import static othello.utils.EntryType.EXACT;
+import static othello.utils.EntryType.*;
 
 /**
  * Data structure for storing data on the game thus far; table containing
@@ -28,9 +27,9 @@ public class TranspositionTable {
     private TableEntry[] transpositionTable;
 
     private static final int BOARD_SIZE = 8;
-    
+
     /**
-     * Currently an arbitrary number, should be optimized
+     * Empirically tested to work best.
      */
     private static final int TABLE_SIZE = 600000;
 
@@ -81,20 +80,6 @@ public class TranspositionTable {
         }
         return hashCode;
     }
-    
-    /**
-     * For efficient comparison-based hashing.
-     * 
-     * @param newBoard board state to be hashed
-     * @param prevBoard previous board state
-     * @param prevHash previous boards' hash
-     * @return hash code of the new game state
-     */
-    public long hashCode(int[][] newBoard, int[][] prevBoard, long prevHash) {
-        // find changed tiles-> xor old identifier & old indentifier
-        // requires new board util
-        return 1L;
-    }
 
     /**
      * Empty the table between searches.
@@ -105,42 +90,43 @@ public class TranspositionTable {
 
     /**
      * Add a new entry to the transposition table.
-     * 
-     * TODO: add replacement policy; current: newer replaces older
-     * one possibility: "replace if same depth or deeper"
      *
      * @param e entry to add to table.
      */
     public void add(TableEntry e) {
         int tableLocation = (int) (e.getHashCode() % TABLE_SIZE);
 
-        //if (transpositionTable[tableLocation] == null) {
+        if (transpositionTable[tableLocation] == null) {
             transpositionTable[tableLocation] = e;
-        /*} else {
+        } else {
             TableEntry entryInTable = transpositionTable[tableLocation];
 
             // exact replaces a/b, deeper replaces
-            if ((e.getDepth() >= entryInTable.getDepth()) ||
-                    (e.getType() == EXACT && entryInTable.getType() != EXACT)) {
+            if ((e.getDepth() >= entryInTable.getDepth())
+                    || (e.getType() == EXACT && entryInTable.getType() != EXACT)) {
                 transpositionTable[tableLocation] = e;
             }
-        }*/
+        }
     }
-    
+
+    /**
+     * To check if any given board state has data in transposition table associated with it.
+     * 
+     * @param gameState board state to search
+     * @return true if table has data
+     */
     public boolean hasAssociatedData(int[][] gameState) {
         long hashCode = hashCode(gameState);
         int location = (int) (hashCode % TABLE_SIZE);
-        if (transpositionTable[location] != null && transpositionTable[location].getHashCode()== hashCode){
+        if (transpositionTable[location] != null && transpositionTable[location].getHashCode() == hashCode) {
             return true;
         }
         return false;
     }
 
     /**
-     * Get data associated with the searched game state. 
-     * 
-     * TODO: return value if no entry?
-     * 
+     * Get data associated with the searched game state.
+     *
      * @param gameState state of the game searched.
      * @return associated tableEntry
      */
@@ -151,6 +137,16 @@ public class TranspositionTable {
             return transpositionTable[tableLocation];
         }
         // if no data present, run hasAssociatedData before get to avoid
-        return new TableEntry(new int[1][1],0,ALPHA,0,new int[1]);
+        return new TableEntry(new int[1][1], 0, ALPHA, 0, new int[1]);
     }
 }
+
+
+/*
+ASIOITA JOITA PITTÄÄ TESTAILLA
+- zobristit uniikkeja
+- kaks deepeq lautaa hascodee samal taval
+- clearin jälkee joka paikke on null
+- add lisää ja voidaa hakee getil
+- add lisää diipimmän ja voidaa hakee getil
+*/

@@ -23,7 +23,7 @@ public class ProgressiveDeepening {
     /**
      * Method implementing progressively deepening minimax; calls minimax with
      * incrementing depths and orders searched moves according to previous
-     * search scores.Interrupts current iteration immediately at timeout.
+     * search scores. Interrupts current iteration immediately at timeout.
      *
      * @param board state of the game
      * @param player player to make the next move
@@ -42,7 +42,7 @@ public class ProgressiveDeepening {
 
         // minimax iteration
         int depth = 0;
-        int infty = Integer.MAX_VALUE;
+        int infty = 2147483647;
         Heap heapToIterate = oddHeap;
         Heap heapToInsert = evenHeap;
         int[] currentBest = heapToIterate.peek()[0];
@@ -69,7 +69,8 @@ public class ProgressiveDeepening {
                 
                 int score;
                 if (usesMemory) {
-                    score = Minimax.minimaxWithMemory(boardAfterMove, opponent, depth, -1 * infty, infty, start, phase, table);
+                    score = Minimax.minimaxWithMemory(
+                        boardAfterMove, opponent, depth, -1 * infty, infty, start, phase, table);
                 } else {
                     score = Minimax.minimaxAlphaBetaWithTimeout(
                         boardAfterMove, opponent, depth, -1 * infty, infty, start, phase);
@@ -84,9 +85,6 @@ public class ProgressiveDeepening {
     }
 
     private static void initializeHeaps(int player) {
-        // node format: {{move_row, move_col}, {minimaxscore, 0}}
-        // comparator minimaxscore
-        // two heaps, one in iteration, one for inserting new nodes
         if (player == BLACK) {
             //max heaps
             oddHeap = new Heap(true);
@@ -99,7 +97,6 @@ public class ProgressiveDeepening {
     }
 
     private static void addAvailableMovesToOddHeap(int[][] board, int player) {
-        // find moves and insert to first heap
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {

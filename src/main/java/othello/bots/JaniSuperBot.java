@@ -6,7 +6,6 @@
 package othello.bots;
 
 import othello.api.OthelloBot;
-import static othello.api.Tile.BLACK;
 import othello.utils.*;
 import static othello.utils.GamePhase.*;
 
@@ -39,7 +38,7 @@ public class JaniSuperBot implements OthelloBot {
     public void startGame(int player) {
         this.player = player;
         this.table = new TranspositionTable();
-        table.generateZobristIdentifiers();
+        TranspositionTable.generateZobristIdentifiers();
         this.movesMade = 0;
         this.phase = OPENING;
     }
@@ -62,7 +61,7 @@ public class JaniSuperBot implements OthelloBot {
             phase = ENDGAME;
         }
 
-        int[] move = ProgressiveDeepening.findBestMove(board, player, true, phase, true, table);
+        int[] move = ProgressiveDeepening.findBestMove(board, player, false, phase, true, table);
         return move;
     }
 
@@ -75,5 +74,4 @@ public class JaniSuperBot implements OthelloBot {
     public boolean isHuman() {
         return false;
     }
-
 }

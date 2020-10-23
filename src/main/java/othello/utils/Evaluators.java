@@ -67,9 +67,9 @@ public class Evaluators {
     /**
      * Opening evaluation: own mobility maximizing and frontier minimizing.
      * 
-     * @param board
-     * @param player
-     * @return 
+     * @param board current state of the game
+     * @param player player whose mobility score is computed
+     * @return integer representing mobility score
      */
     public static int openingEvaluator(int[][] board, int player) {
         int score = mobilityScore(board, player);
@@ -130,11 +130,7 @@ public class Evaluators {
         int edgeStability = countEdgeStability(board, isTileStable, player);
         int countOfNonStable = countNonStableDiscs(board, isTileStable, player);
         int score = 10 * edgeStability + countOfNonStable;
-        if (player == BLACK) {
-            return score;
-        } else {
-            return -1 * score;
-        }
+        return player == BLACK ? score : -1 * score;
     }
 
     private static int countEdgeStability(int[][] board, boolean[][] tileIsStable, int player) {
@@ -182,8 +178,6 @@ public class Evaluators {
                 }
             }
         }
-
         return discCount;
     }
-
 }

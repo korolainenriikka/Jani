@@ -63,14 +63,15 @@ public class JaniTileScorer implements OthelloBot {
     public int[] makeMove(int[][] board) {
         long start = System.nanoTime();
         updateGamePhase();
+        
         int[] move = new int[2];
-        double infty = Double.POSITIVE_INFINITY;
-        double bestScore = maximize ? -1 * infty : infty;
+        int infty = 2147483647;
+        int bestScore = maximize ? -1 * infty : infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (BoardUtils.isAllowed(i, j, player, board)) {
-                    double score = Minimax.minimax(board, player, depth - 1);
+                    int score = Minimax.minimax(board, player, depth - 1);
 
                     if (maximize) {
                         if (score >= bestScore) {
@@ -109,8 +110,8 @@ public class JaniTileScorer implements OthelloBot {
      */
     public int[] makeMoveCustomDepth(int[][] board, int depth) {
         int[] move = new int[2];
-        double infty = Double.POSITIVE_INFINITY;
-        double bestScore = maximize ? -1 * infty : infty;
+        int infty = 2147483647;
+        int bestScore = maximize ? -1 * infty : infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -141,5 +142,4 @@ public class JaniTileScorer implements OthelloBot {
     public boolean isHuman() {
         return false;
     }
-
 }

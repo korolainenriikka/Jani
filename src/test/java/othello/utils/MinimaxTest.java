@@ -6,10 +6,10 @@
 package othello.utils;
 
 import static othello.api.Tile.*;
-import othello.utils.BoardUtils;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import static othello.utils.GamePhase.OPENING;
 
 /**
  *
@@ -37,7 +37,14 @@ public class MinimaxTest {
     public void minimaxOpeningScoresAlwaysEqual() {
         // every opening score has value 4  
         assertEquals(4, (int) Minimax.minimaxAlphaBeta(board, BLACK, 1, -1 * INFTY, INFTY));
-        assertEquals(-4, (int) Minimax.minimaxAlphaBeta(board, WHITE, 1, -1 * INFTY, INFTY));
+    }
+    
+    @Test
+    public void minimaxWithMemoryOpeningScoresEqual() {
+        // every opening score has value 20 w opening evaluator
+        TranspositionTable table = new TranspositionTable();
+        TranspositionTable.generateZobristIdentifiers();
+        assertEquals(20, (int) Minimax.minimaxWithMemory(board, BLACK, 1, -1 * INFTY, INFTY, System.nanoTime(), OPENING, table));
     }
 
     @Test
@@ -51,18 +58,6 @@ public class MinimaxTest {
         eliminationBoard[2][4] = WHITE;
         eliminationBoard[4][4] = WHITE;
 
-        assertEquals(-1000, (int) Minimax.minimaxAlphaBeta(eliminationBoard, WHITE, 1, -1 * INFTY, INFTY));
-    }
-
-    @Test
-    public void winEvaluatorReturnVaueEqualsBoardUtilWinningValue() {
-        assertEquals(BoardUtils.winner(board), Evaluators.winEvaluator(board));
-    }
-
-    @Test
-    public void stateEvaluatorReturnsSumOfPieceScoresOfPlayer() {
-        board[0][0] = BLACK;
-        board[1][1] = BLACK;
-        assertEquals(75, Evaluators.stateEvaluator(board));
+        assertEquals(-1000, (int) Minimax.minimaxAlphaBeta(eliminationBoard, WHITE, 1, -1 * INFTY, INFTY));      
     }
 }

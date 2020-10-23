@@ -86,7 +86,6 @@ public class UI {
 
                 if (move == null) {
                     print("TIMEOUT - DISQUALIFIED", printsOn);
-                    System.out.println("lost bc time out :((((");
                     winner = colors[opponent];
                     break;
                 }

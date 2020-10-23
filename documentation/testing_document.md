@@ -1,12 +1,17 @@
 <!--
-tähän viel:
--final test coverage & kirjota vikat testit
--pelitulokset prgrs ja superbot-->
+
+    Mitä on testattu, miten tämä tehtiin
+    Minkälaisilla syötteillä testaus tehtiin (vertailupainotteisissa töissä tärkeää)
+    Miten testit voidaan toistaa ZEK
+    Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
+    Testaus on ideaalitapauksessa suoritettava ohjelma. Tällöin testi on helposti toistettavissa, mikä helpottaa toteutuksen tekoa jo varhaisessa vaiheessa. Javalla tehdyissä töissä on erittäin suositeltavaa käyttää testaukseen JUnitia. ZEK
+
+-->
 
 # Testing Document
 
 ## Test coverage:
-<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/testcoverage_week6.png"/>
+<img src="https://github.com/korolainenriikka/Jani/blob/master/documentation/images/final_test_coverage.png"/>
 
 Re-run tests with `mvn test` in repository root.
 
@@ -34,13 +39,13 @@ The bots playing against each other yielded the following results, percentiles c
 
 * Random v AlphaTileScorer: 56% of games won by Alpha
 
-* Random v Prgrs: 
-
-* Random v SuperBot:
+* Random v Prgrs: 95% of games won by Prgrs
 
 * TileScorer v AlphaTileScorer: player 2 wins every time whichever bot is player 2
 
 * Prgrs wins all non-random bots every time
+
+* SuperBot wins all other bots except prgrs approx. 70% of games.
 
 
 

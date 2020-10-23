@@ -65,10 +65,10 @@ public class JaniAlphaTileScorer implements OthelloBot {
         long start = System.nanoTime();
         updateGamePhase();
         int[] move = new int[2];
-
-        int infty = Integer.MAX_VALUE;
+        
+        // infty = max integer
+        int infty = 2147483647;
         int bestScore = maximize ? -1 * infty : infty;
-        int a = -1 * infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -126,9 +126,8 @@ public class JaniAlphaTileScorer implements OthelloBot {
         updateGamePhase();
         int[] move = new int[2];
 
-        int infty = Integer.MAX_VALUE;
+        int infty = 2147483647;
         int bestScore = maximize ? -1 * infty : infty;
-        int a = -1 * infty;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -154,5 +153,4 @@ public class JaniAlphaTileScorer implements OthelloBot {
         }
         return move;
     }
-
 }

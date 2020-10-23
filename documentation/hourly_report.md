@@ -50,6 +50,9 @@ date | hours | what I did
 ------------ | ------------- | -----------------------------------------------
 14.10 | 2 | transposition implementation & more research, debug and tests
 15.10 | 4 | transposition table, documentation finishing
+20.10 | 2 | code finishing
+21.10 | 1 | prep for demo
+23.10 | 3 | project finishing
 
 ## Totals
 week | hours
@@ -60,5 +63,6 @@ week | hours
 4 | 8,5
 5 | 7,5
 6 | 10
+7 | 12
 
-Grand total: 68,5 hours
+Grand total: 80,5 hours

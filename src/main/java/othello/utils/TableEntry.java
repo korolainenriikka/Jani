@@ -37,15 +37,17 @@ public class TableEntry {
     /**
      * Initialize new entry.
      * 
+     * @param board state of game data is associated with
      * @param depth depth of computation
      * @param type a, b or exact
+     * @param minimaxScore evaluation score received with minimax
      * @param bestMove best move at this stage
      */
-    public TableEntry(int[][] board, int depth, EntryType type, int value, int[] bestMove) {
+    public TableEntry(int[][] board, int depth, EntryType type, int minimaxScore, int[] bestMove) {
         this.hashCode = TranspositionTable.hashCode(board);
         this.depth = depth;
         this.type = type;
-        this.minimaxScore = value;
+        this.minimaxScore = minimaxScore;
         this.bestMove = bestMove;
     }
     
@@ -93,7 +95,4 @@ public class TableEntry {
     public int[] getBestMove() {
         return bestMove;
     }
-    
-    
-
 }

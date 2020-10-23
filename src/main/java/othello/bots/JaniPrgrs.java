@@ -50,7 +50,7 @@ public class JaniPrgrs implements OthelloBot {
     @Override
     public int[] makeMove(int[][] board) {
         movesMade++;
-        if (movesMade == 10) {
+        if (movesMade == 5) {
             phase = MIDGAME;
         }
         

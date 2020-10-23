@@ -1,7 +1,7 @@
 package othello.bots;
 
 import othello.api.OthelloBot;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**

@@ -1,3 +1,3 @@
 /*
-Package containig necessary interfaces from othello-core for bot implementation.
+Package containing necessary interfaces from othello-core for bot implementation.
 */

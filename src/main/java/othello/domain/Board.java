@@ -2,7 +2,6 @@ package othello.domain;
 
 import static othello.api.Tile.*;
 import java.util.Arrays;
-import othello.ui.UI;
 
 /**
  * Othello board modification and checking methods for running the game.

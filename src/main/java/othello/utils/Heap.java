@@ -10,7 +10,7 @@ package othello.utils;
  * in index 1,0. For progressive deepening.
  *
  * Max amount of nodes will be small throughout the game, so any store-and-order
- * data structure would suffice. Heap implemented for the sake of the sport :)
+ * data structure would have sufficed. Heap implemented for the sake of the sport :)
  *
  * @author riikoro
  */
@@ -78,12 +78,8 @@ public class Heap {
 
     private boolean comparesHigher(int n1, int n2) {
         // if one's null the other compares higher
-        if (heap[n1] == null) {
+        if (heap[n1] == null || heap[n2] == null) {
             return false;
-        }
-
-        if (heap[n2] == null) {
-            return true;
         }
 
         // min heap higher compare: n1 < n2
