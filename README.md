@@ -4,6 +4,8 @@ An othello-playing bot for the course data structures project, named after maybe
 
 The othello game client is copied from [othello-core](https://github.com/vuolen/othello-core) created for this bot project.
 
+[Final release](https://github.com/korolainenriikka/Jani/releases/tag/v1.0) 
+
 ## How to run
 
 To play against these bots, or see them play against each other:
